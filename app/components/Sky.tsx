@@ -27,7 +27,7 @@ export default function Sky() {
         }
         return nextIndex;
       });
-    }, 1000);
+    }, 10000);
 
     return () => clearInterval(interval);
   }, [direction]);
