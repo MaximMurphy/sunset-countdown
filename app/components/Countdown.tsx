@@ -64,8 +64,12 @@ export default function Countdown() {
   }
 
   return (
-    <div className="font-mono text-7xl md:text-8xl lg:text-9xl font-medium tracking-wider text-amber-50">
+    <div className="flex flex-col items-center justify-center gap-4 font-mono text-7xl md:text-8xl lg:text-9xl font-medium text-amber-50">
       {timeLeft}
+
+      <div className="text-sm text-amber-100">
+        Sunset at {sunsetData.sunset}
+      </div>
     </div>
   );
 }
