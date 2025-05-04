@@ -20,26 +20,57 @@ export default function Sun() {
 
     const updatePosition = () => {
       const now = new Date();
+      const solarNoon = parseTimeString(sunData.solar_noon);
       const sunrise = parseTimeString(sunData.sunrise);
       const sunset = parseTimeString(sunData.sunset);
 
-      // If it's before sunrise or after sunset, sun should be below screen
+      // Define the transition periods (2 hours = 7200000 milliseconds)
+      const transitionPeriod = 7200000;
+
+      const isRising = now < new Date(sunrise.getTime() + transitionPeriod);
+      const isSetting = now > new Date(sunset.getTime() - transitionPeriod);
+      const isBeforeNoon =
+        now < new Date(solarNoon.getTime() - transitionPeriod);
+      const isAfterNoon =
+        now > new Date(solarNoon.getTime() + transitionPeriod);
+      const isAtNoon = !isBeforeNoon && !isAfterNoon;
+
+      let position;
+
       if (now < sunrise || now > sunset) {
-        setPosition(100);
-        return;
+        // If it's before sunrise or after sunset, sun should be below screen
+        position = 100;
+      } else if (isRising) {
+        // During first 2 hours after sunrise, rise from 100 to 30
+        const riseProgress =
+          (now.getTime() - sunrise.getTime()) / transitionPeriod;
+        position = 100 - 70 * riseProgress;
+      } else if (isSetting) {
+        // During last 2 hours before sunset, descend from 30 to 100
+        const setProgress =
+          (now.getTime() - (sunset.getTime() - transitionPeriod)) /
+          transitionPeriod;
+        position = 30 + 70 * setProgress;
+      } else if (isAtNoon) {
+        // During the 4-hour period around solar noon (2 hours before and after), stay at position 0
+        position = 0;
+      } else if (isBeforeNoon) {
+        // Between sunrise transition and noon transition, rise from 30 to 0
+        const noonProgress =
+          (now.getTime() - (sunrise.getTime() + transitionPeriod)) /
+          (solarNoon.getTime() -
+            transitionPeriod -
+            (sunrise.getTime() + transitionPeriod));
+        position = 30 - 30 * noonProgress;
+      } else {
+        // Between noon transition and sunset transition, descend from 0 to 30
+        const noonProgress =
+          (now.getTime() - (solarNoon.getTime() + transitionPeriod)) /
+          (sunset.getTime() -
+            transitionPeriod -
+            (solarNoon.getTime() + transitionPeriod));
+        position = 0 + 30 * noonProgress;
       }
-
-      // Calculate position between sunrise and sunset
-      const totalDayLength = sunset.getTime() - sunrise.getTime();
-      const currentTime = now.getTime() - sunrise.getTime();
-      const progress = currentTime / totalDayLength;
-
-      // Convert progress to position using a quadratic function
-      // This will keep the sun higher for longer and accelerate its descent
-      const position =
-        progress < 0.5
-          ? 32 + (progress * 2) ** 2 * 8 // First half of the day: slow descent
-          : 32 + 8 + (progress - 0.5) ** 2 * 60; // Second half: accelerating descent
 
       setPosition(position);
     };
@@ -53,9 +84,23 @@ export default function Sun() {
   return (
     <div className="absolute inset-0 flex justify-center overflow-hidden">
       <div
-        className="w-75 h-75 bg-amber-500 rounded-full transition-transform duration-1000 ease-in-out"
+        className="w-95 h-95 bg-amber-300 rounded-full transition-transform duration-1000 ease-in-out"
         style={{
           transform: `translateY(${position}vh)`,
+          marginTop: "32px",
+        }}
+      />
+      <div
+        className="absolute w-95 h-95 bg-amber-400 rounded-full transition-transform duration-1000 ease-in-out opacity-70"
+        style={{
+          transform: `translateY(${position + 3}vh)`,
+          marginTop: "32px",
+        }}
+      />
+      <div
+        className="absolute w-95 h-95 bg-amber-500 rounded-full transition-transform duration-1000 ease-in-out opacity-50"
+        style={{
+          transform: `translateY(${position + 6}vh)`,
           marginTop: "32px",
         }}
       />
