@@ -27,15 +27,14 @@ export default function Sky() {
         }
         return nextIndex;
       });
-    }, 10000);
+    }, 1000);
 
     return () => clearInterval(interval);
   }, [direction]);
 
+  console.log(currentColorIndex);
+
   return (
-    <div
-      className="absolute w-full h-full"
-      style={{ background: skyColors[currentColorIndex] }}
-    />
+    <div className="absolute w-full h-full" style={{ background: "#01123b" }} />
   );
 }
