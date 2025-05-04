@@ -1,9 +1,9 @@
 "use client";
 import { useEffect } from "react";
-import { useSunset } from "../context/SunsetContext";
+import { useSun } from "../context/SunContext";
 
-export default function LocationSunsetTime() {
-  const { setSunsetData } = useSunset();
+export default function LocationSunTime() {
+  const { setSunData } = useSun();
 
   useEffect(() => {
     if (navigator.geolocation) {
@@ -16,16 +16,16 @@ export default function LocationSunsetTime() {
 
           try {
             const response = await fetch(
-              `/api/sunset?lat=${newLocation.latitude}&lng=${newLocation.longitude}`
+              `/api/sun?lat=${newLocation.latitude}&lng=${newLocation.longitude}`
             );
             const data = await response.json();
             if (data.results) {
-              setSunsetData(data.results);
+              setSunData(data.results);
             } else {
-              console.log("Failed to fetch sunset data");
+              console.log("Failed to fetch sun data");
             }
           } catch (err) {
-            console.error("Error fetching sunset data:", err);
+            console.error("Error fetching sun data:", err);
           }
         },
         (error) => {
@@ -35,7 +35,7 @@ export default function LocationSunsetTime() {
     } else {
       console.log("Geolocation is not supported by this browser.");
     }
-  }, [setSunsetData]);
+  }, [setSunData]);
 
   return null;
 }

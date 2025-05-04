@@ -1,16 +1,16 @@
 "use client";
 
-import { useSunset } from "../context/SunsetContext";
+import { useSun } from "../context/SunContext";
 
 export default function TimeDisplay() {
-  const { sunsetData } = useSunset();
+  const { sunData } = useSun();
 
   const timePretty =
-    sunsetData?.sunset.split(" ")[0].split(":").slice(0, 2).join(":") +
+    sunData?.sunset.split(" ")[0].split(":").slice(0, 2).join(":") +
     " " +
-    sunsetData?.sunset.split(" ")[1];
+    sunData?.sunset.split(" ")[1];
 
-  if (!sunsetData) {
+  if (!sunData) {
     return (
       <div className="font-mono font-medium text-sm text-amber-100">
         Loading...

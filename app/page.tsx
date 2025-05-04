@@ -1,15 +1,15 @@
 import Sky from "./components/Sky";
 import Countdown from "./components/Countdown";
-import LocationSunsetTime from "./components/LocationSunsetTime";
-import { SunsetProvider } from "./context/SunsetContext";
+import LocationSunTime from "./components/LocationSunTime";
+import { SunProvider } from "./context/SunContext";
 import TimeDisplay from "./components/TimeDisplay";
 import Sun from "./components/Sun";
 
 export default function Home() {
   return (
-    <SunsetProvider>
+    <SunProvider>
       <div className="relative h-screen flex flex-col items-center justify-center">
-        <LocationSunsetTime />
+        <LocationSunTime />
         <Sky />
         <Sun />
         <div className="z-20 absolute inset-0 flex flex-col items-center justify-center">
@@ -19,6 +19,6 @@ export default function Home() {
           <TimeDisplay />
         </div>
       </div>
-    </SunsetProvider>
+    </SunProvider>
   );
 }

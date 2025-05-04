@@ -1,21 +1,21 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useSunset } from "../context/SunsetContext";
+import { useSun } from "../context/SunContext";
 
 export default function Countdown() {
-  const { sunsetData } = useSunset();
+  const { sunData } = useSun();
   const [timeLeft, setTimeLeft] = useState<string>("");
 
   useEffect(() => {
-    if (!sunsetData) return;
+    if (!sunData) return;
 
     const updateCountdown = () => {
       // Get current time
       const now = new Date();
 
       // Parse the sunset time string (e.g., "8:28:38 PM")
-      const [time, period] = sunsetData.sunset.split(" ");
+      const [time, period] = sunData.sunset.split(" ");
       const [hours, minutes, seconds] = time.split(":").map(Number);
 
       // Create a new date for today with the sunset time
@@ -54,9 +54,9 @@ export default function Countdown() {
     const interval = setInterval(updateCountdown, 1000);
 
     return () => clearInterval(interval);
-  }, [sunsetData]);
+  }, [sunData]);
 
-  if (!sunsetData) {
+  if (!sunData) {
     return (
       <div className="font-mono text-7xl md:text-8xl lg:text-9xl font-medium text-amber-50">
         Loading...
