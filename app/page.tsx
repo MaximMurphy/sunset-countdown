@@ -2,6 +2,7 @@ import Sky from "./components/Sky";
 import Countdown from "./components/Countdown";
 import LocationSunsetTime from "./components/LocationSunsetTime";
 import { SunsetProvider } from "./context/SunsetContext";
+import TimeDisplay from "./components/TimeDisplay";
 
 export default function Home() {
   return (
@@ -9,8 +10,11 @@ export default function Home() {
       <div className="relative h-screen flex flex-col items-center justify-center">
         <LocationSunsetTime />
         <Sky />
-        <div className="z-20 flex flex-col items-center gap-4">
+        <div className="z-20 absolute inset-0 flex flex-col items-center justify-center">
           <Countdown />
+        </div>
+        <div className="z-20 h-full w-full flex justify-start items-end p-12">
+          <TimeDisplay />
         </div>
       </div>
     </SunsetProvider>
