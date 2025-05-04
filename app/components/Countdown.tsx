@@ -4,35 +4,36 @@ import { useState, useEffect } from "react";
 import { useSun } from "../context/SunContext";
 
 export default function Countdown() {
-  const { sunData } = useSun();
+  const { sunData, getNextEvent } = useSun();
   const [timeLeft, setTimeLeft] = useState<string>("");
 
   useEffect(() => {
     if (!sunData) return;
 
     const updateCountdown = () => {
-      // Get current time
       const now = new Date();
+      const nextEvent = getNextEvent();
+
+      if (!nextEvent) {
+        console.error("No next event found despite having sunData");
+        setTimeLeft("Error");
+        return;
+      }
 
       // Parse the sunset time string (e.g., "8:28:38 PM")
-      const [time, period] = sunData.sunset.split(" ");
+      const [time, period] = nextEvent.time.split(" ");
       const [hours, minutes, seconds] = time.split(":").map(Number);
 
-      // Create a new date for today with the sunset time
-      const sunsetTime = new Date(now);
-      sunsetTime.setHours(
+      // Create a new date for today with the sun event time
+      const sunEventTime = new Date(now);
+      sunEventTime.setHours(
         period === "PM" ? hours + 12 : hours,
         minutes,
         seconds,
         0
       );
 
-      // If the sunset time is earlier than now, it means it's for tomorrow
-      if (sunsetTime < now) {
-        sunsetTime.setDate(sunsetTime.getDate() + 1);
-      }
-
-      const diff = sunsetTime.getTime() - now.getTime();
+      const diff = sunEventTime.getTime() - now.getTime();
 
       if (diff <= 0) {
         setTimeLeft("Sunset has passed");
@@ -54,7 +55,7 @@ export default function Countdown() {
     const interval = setInterval(updateCountdown, 1000);
 
     return () => clearInterval(interval);
-  }, [sunData]);
+  }, [sunData, getNextEvent]);
 
   if (!sunData) {
     return (

@@ -3,12 +3,13 @@
 import { useSun } from "../context/SunContext";
 
 export default function TimeDisplay() {
-  const { sunData } = useSun();
+  const { sunData, getNextEvent } = useSun();
+  const nextEvent = getNextEvent();
 
   const timePretty =
-    sunData?.sunset.split(" ")[0].split(":").slice(0, 2).join(":") +
+    nextEvent?.time.split(" ")[0].split(":").slice(0, 2).join(":") +
     " " +
-    sunData?.sunset.split(" ")[1];
+    nextEvent?.time.split(" ")[1];
 
   if (!sunData) {
     return (
@@ -20,7 +21,7 @@ export default function TimeDisplay() {
 
   return (
     <div className="font-mono font-medium text-sm text-amber-100">
-      Sunset at {timePretty}
+      {nextEvent?.type === "sunset" ? "Sunset at" : "Sunrise at"} {timePretty}
     </div>
   );
 }
