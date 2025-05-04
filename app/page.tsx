@@ -1,7 +1,12 @@
+import Sky from "./components/Sky";
+
 export default function Home() {
   return (
-    <div>
-      <h1>Hello World</h1>
+    <div className="relative h-screen flex flex-col items-center justify-center">
+      <Sky />
+      <h1 className="z-20 text-5xl font-medium tracking-wider text-amber-50">
+        Sunset Countdown
+      </h1>
     </div>
   );
 }
