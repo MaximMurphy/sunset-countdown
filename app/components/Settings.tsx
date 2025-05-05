@@ -1,8 +1,39 @@
+"use client";
+
+import { useState } from "react";
+
 export default function Settings() {
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
-    <div className="flex items-center gap-2 text-amber-100 hover:text-amber-300 cursor-pointer transition-colors duration-300">
-      <SettingsIcon />
-    </div>
+    <>
+      <div
+        className="flex items-center gap-2 text-amber-100 hover:text-amber-300 cursor-pointer transition-colors duration-300"
+        onClick={() => setIsOpen(true)}
+      >
+        <SettingsIcon />
+      </div>
+
+      {isOpen && (
+        <div className="fixed inset-0 bg-opacity-50 flex items-center justify-center z-40">
+          <div className="bg-amber-100 text-[#000717] p-6 rounded-lg shadow-xl max-w-md w-full mx-4">
+            <div className="flex justify-between items-center mb-4">
+              <h2 className="text-xl font-semibold">Settings</h2>
+              <button
+                onClick={() => setIsOpen(false)}
+                className="hover:text-amber-500 hover:scale-110 hover:cursor-pointer transition-all duration-300"
+              >
+                ✕
+              </button>
+            </div>
+            <div>
+              {/* Add your settings content here */}
+              <p>Settings content goes here</p>
+            </div>
+          </div>
+        </div>
+      )}
+    </>
   );
 }
 
