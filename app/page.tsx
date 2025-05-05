@@ -13,7 +13,8 @@ export default function Home() {
         <svg
           viewBox="0 0 450 450"
           xmlns="http://www.w3.org/2000/svg"
-          className="z-50 absolute inset-0 opacity-50 mix-blend-multiply"
+          className="z-50 absolute inset-0 w-full h-full opacity-50 mix-blend-multiply pointer-events-none"
+          preserveAspectRatio="xMidYMid slice"
         >
           <filter id="noiseFilter">
             <feTurbulence
