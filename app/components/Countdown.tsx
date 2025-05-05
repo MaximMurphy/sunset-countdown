@@ -106,7 +106,7 @@ export default function Countdown() {
 
   return (
     <section
-      className={`z-20 absolute inset-0 flex flex-col items-center justify-center px-6 py-8 md:px-12 md:py-12 ${
+      className={`z-20 absolute inset-0 flex flex-col items-center justify-center px-6 py-8 md:px-12 md:py-12 overflow-hidden ${
         countdownPosition === "left"
           ? "items-start"
           : countdownPosition === "right"

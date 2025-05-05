@@ -142,16 +142,19 @@ const CountdownToggle = ({
       <div className="flex flex-col gap-2">
         <label className="text-sm font-semibold">Position</label>
         <div className="flex flex-row justify-between gap-4">
-          <div className="w-full flex flex-row justify-between gap-4">
+          <div className="w-full flex flex-row justify-between gap-4 text-xs">
             <button
               onClick={() => setCountdownPosition("left")}
               className={`h-full w-1/3 border p-2 rounded-md hover:cursor-pointer hover:border-amber-500 transition-all duration-300 ${
                 countdownPosition === "left"
                   ? "border-amber-500 bg-amber-100/50"
                   : "border-amber-200"
+              } ${
+                countdownSize === "lg" &&
+                "opacity-40 hover:cursor-not-allowed pointer-events-none md:opacity-100 md:hover:cursor-pointer md:pointer-events-auto"
               }`}
             >
-              Left
+              L
             </button>
             <button
               onClick={() => setCountdownPosition("middle")}
@@ -161,7 +164,7 @@ const CountdownToggle = ({
                   : "border-amber-200"
               }`}
             >
-              Middle
+              |
             </button>
             <button
               onClick={() => setCountdownPosition("right")}
@@ -169,9 +172,12 @@ const CountdownToggle = ({
                 countdownPosition === "right"
                   ? "border-amber-500 bg-amber-100/50"
                   : "border-amber-200"
+              } ${
+                countdownSize === "lg" &&
+                "opacity-40 hover:cursor-not-allowed pointer-events-none md:opacity-100 md:hover:cursor-pointer md:pointer-events-auto"
               }`}
             >
-              Right
+              R
             </button>
           </div>
         </div>
