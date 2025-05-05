@@ -86,7 +86,7 @@ export function DayCycleProvider({ children }: { children: ReactNode }) {
             transitionPeriod -
             (solarNoon.getTime() + noonTransitionPeriod));
         position = 2 + 28 * noonProgress;
-        colorIndex = 6; // Day
+        colorIndex = 5; // Day
       }
 
       setSunPosition(position);
