@@ -8,7 +8,7 @@ export default function Settings() {
   return (
     <>
       <div
-        className="flex items-center gap-2 text-amber-100 hover:text-amber-300 cursor-pointer transition-colors duration-300"
+        className="flex items-center gap-2 text-amber-100 hover:text-amber-500 hover:scale-110 hover:cursor-pointer transition-all duration-300"
         onClick={() => setIsOpen(true)}
       >
         <SettingsIcon />

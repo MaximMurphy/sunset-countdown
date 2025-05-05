@@ -103,8 +103,12 @@ export default function Countdown() {
   }
 
   return (
-    <div className="flex flex-col items-center justify-center gap-4 font-mono text-[4rem] md:text-[10rem] lg:text-[14rem] font-medium text-amber-50">
-      {timeLeft}
+    <div className="flex flex-row items-center justify-center gap-4 font-mono text-[4rem] md:text-[10rem] lg:text-[14rem] font-medium text-amber-50">
+      <div className="w-[1.2em] text-right">{timeLeft.split(":")[0]}</div>
+      <div>:</div>
+      <div className="w-[1.2em] text-center">{timeLeft.split(":")[1]}</div>
+      <div>:</div>
+      <div className="w-[1.2em] text-left">{timeLeft.split(":")[2]}</div>
     </div>
   );
 }
