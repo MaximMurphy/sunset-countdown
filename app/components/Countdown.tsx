@@ -106,7 +106,7 @@ export default function Countdown() {
 
   return (
     <section
-      className={`z-20 absolute inset-0 flex flex-col items-center justify-center ${
+      className={`z-20 absolute inset-0 flex flex-col items-center justify-center px-6 py-8 md:px-12 md:py-12 ${
         countdownPosition === "left"
           ? "items-start"
           : countdownPosition === "right"
@@ -115,7 +115,7 @@ export default function Countdown() {
       }`}
     >
       <div
-        className={`flex flex-row items-center justify-center gap-4 font-mono  font-medium text-amber-50 transition-all duration-500 ease-in-out ${
+        className={`flex flex-row items-center justify-center gap-4 font-mono font-medium text-amber-50 transition-all duration-500 ease-in-out ${
           countdown === "ON" ? "opacity-100" : "opacity-0"
         } ${
           countdownSize === "sm"

@@ -14,7 +14,7 @@ export default function Home() {
       <Sky />
       <Sun />
       <Countdown />
-      <div className="z-20 h-full w-full flex justify-between items-end p-12">
+      <div className="z-20 h-full w-full flex justify-between items-end px-6 py-8 md:px-12 md:py-12">
         <TimeDisplay />
         <Settings />
       </div>
