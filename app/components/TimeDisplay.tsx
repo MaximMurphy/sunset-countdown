@@ -13,14 +13,14 @@ export default function TimeDisplay() {
 
   if (!sunData) {
     return (
-      <div className="font-mono font-medium text-sm text-amber-100">
+      <div className="font-mono font-medium text-sm md:text-md text-amber-100">
         Loading...
       </div>
     );
   }
 
   return (
-    <div className="font-mono font-medium text-sm text-amber-100">
+    <div className="font-mono font-medium text-sm md:text-md text-amber-100">
       {nextEvent?.type === "sunset" ? "Sunset at" : "Sunrise at"} {timePretty}
     </div>
   );
