@@ -31,6 +31,7 @@ export default function Settings() {
             <section className="font-mono h-full flex flex-col justify-between">
               <div className="font-mono flex flex-col gap-8 mb-12">
                 <FontSelector />
+                <CountdownSelector />
                 <TimeFormatSelector />
               </div>
               <Footer />
@@ -78,6 +79,38 @@ const FontSelector = () => {
           }`}
         >
           Roboto
+        </button>
+      </div>
+    </div>
+  );
+};
+
+const CountdownSelector = () => {
+  const { countdown, setCountdown } = useSettings();
+
+  return (
+    <div className="flex flex-col gap-2">
+      <label className="text-sm font-semibold">Countdown</label>
+      <div className="w-1/2 flex flex-row justify-between gap-4">
+        <button
+          onClick={() => setCountdown("ON")}
+          className={`h-full w-full border p-2 rounded-md hover:cursor-pointer hover:border-amber-500 transition-all duration-300 ${
+            countdown === "ON"
+              ? "border-amber-500 bg-amber-100/50"
+              : "border-amber-200"
+          }`}
+        >
+          ON
+        </button>
+        <button
+          onClick={() => setCountdown("OFF")}
+          className={`h-full w-full border p-2 rounded-md hover:cursor-pointer hover:border-amber-500 transition-all duration-300 ${
+            countdown === "OFF"
+              ? "border-amber-500 bg-amber-100/50"
+              : "border-amber-200"
+          }`}
+        >
+          OFF
         </button>
       </div>
     </div>
