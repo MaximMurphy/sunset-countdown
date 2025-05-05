@@ -89,30 +89,49 @@ const CountdownSelector = () => {
   const { countdown, setCountdown } = useSettings();
 
   return (
-    <div className="flex flex-col gap-2">
-      <label className="text-sm font-semibold">Countdown</label>
-      <div className="w-1/2 flex flex-row justify-between gap-4">
+    <div className="flex gap-2">
+      <section className="w-1/3 flex flex-col gap-2">
+        <label className="text-sm font-semibold">Countdown</label>
         <button
-          onClick={() => setCountdown("ON")}
-          className={`h-full w-full border p-2 rounded-md hover:cursor-pointer hover:border-amber-500 transition-all duration-300 ${
+          onClick={() => setCountdown(countdown === "ON" ? "OFF" : "ON")}
+          className={`relative h-12 w-24 rounded-md border transition-all duration-300 hover:cursor-pointer hover:border-amber-500 ${
             countdown === "ON"
-              ? "border-amber-500 bg-amber-100/50"
+              ? "border-amber-500 bg-amber-500"
               : "border-amber-200"
           }`}
         >
-          ON
+          <div
+            className={`absolute top-2 h-8 w-12 rounded-md bg-amber-200 transition-all duration-300 ${
+              countdown === "ON" ? "left-10" : "left-2"
+            }`}
+          >
+            <span
+              className={`h-full text-sm font-semibold flex items-center justify-center ${
+                countdown === "ON" ? "text-amber-500" : "text-amber-50"
+              }`}
+            >
+              {countdown === "ON" ? "On" : "Off"}
+            </span>
+          </div>
         </button>
-        <button
-          onClick={() => setCountdown("OFF")}
-          className={`h-full w-full border p-2 rounded-md hover:cursor-pointer hover:border-amber-500 transition-all duration-300 ${
-            countdown === "OFF"
-              ? "border-amber-500 bg-amber-100/50"
-              : "border-amber-200"
-          }`}
-        >
-          OFF
-        </button>
-      </div>
+      </section>
+      <section className="w-2/3 flex flex-col gap-2">
+        <div>
+          <label className="text-sm font-semibold">Countdown</label>
+          <input
+            type="number"
+            className="w-full h-12 rounded-md border border-amber-200 p-2"
+          />
+        </div>
+        <div>
+          {" "}
+          <label className="text-sm font-semibold">Countdown</label>
+          <input
+            type="number"
+            className="w-full h-12 rounded-md border border-amber-200 p-2"
+          />
+        </div>
+      </section>
     </div>
   );
 };
