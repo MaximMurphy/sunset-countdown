@@ -11,8 +11,8 @@ export default function Countdown() {
     if (!sunData) return;
 
     const updateCountdown = () => {
-      const now = new Date();
       const nextEvent = getNextEvent();
+      const now = new Date();
 
       if (!nextEvent) {
         console.error("No next event found despite having sunData");
