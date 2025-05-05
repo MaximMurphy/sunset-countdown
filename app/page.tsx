@@ -13,9 +13,7 @@ export default function Home() {
       <LocationSunTime />
       <Sky />
       <Sun />
-      <div className="z-20 absolute inset-0 flex flex-col items-center justify-center">
-        <Countdown />
-      </div>
+      <Countdown />
       <div className="z-20 h-full w-full flex justify-between items-end p-12">
         <TimeDisplay />
         <Settings />

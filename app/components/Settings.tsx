@@ -272,7 +272,7 @@ const Footer = () => (
       rel="noopener noreferrer"
       className="hover:text-amber-500 transition-all duration-300"
     >
-      Luminance
+      Maxim Murphy
     </Link>{" "}
     🌇
   </p>
