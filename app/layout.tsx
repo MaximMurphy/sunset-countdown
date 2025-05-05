@@ -3,6 +3,7 @@ import { Geist, Geist_Mono, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
 import { SunProvider } from "./context/SunContext";
 import { DayCycleProvider } from "./context/DayCycleContext";
+import { SettingsProvider } from "./context/SettingsContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -35,9 +36,11 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${ibmPlexMono.variable} antialiased`}
       >
-        <SunProvider>
-          <DayCycleProvider>{children}</DayCycleProvider>
-        </SunProvider>
+        <SettingsProvider>
+          <SunProvider>
+            <DayCycleProvider>{children}</DayCycleProvider>
+          </SunProvider>
+        </SettingsProvider>
       </body>
     </html>
   );
