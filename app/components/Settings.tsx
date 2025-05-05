@@ -6,7 +6,6 @@ import { useSettings } from "../context/SettingsContext";
 
 export default function Settings() {
   const [isOpen, setIsOpen] = useState(false);
-  const { font, timeFormat, setFont, setTimeFormat } = useSettings();
 
   return (
     <>
@@ -19,7 +18,7 @@ export default function Settings() {
 
       {isOpen && (
         <div className="fixed inset-0 bg-opacity-50 flex items-center justify-center z-40">
-          <div className="bg-amber-100 text-[#000717] p-6 rounded-xl shadow-xl max-w-md w-full mx-4">
+          <div className="bg-amber-50 text-[#000717] p-6 rounded-xl shadow-xl max-w-md w-full mx-4">
             <div className="flex justify-between items-center mb-6">
               <h2 className="text-xl font-semibold">Settings</h2>
               <button
@@ -31,67 +30,8 @@ export default function Settings() {
             </div>
             <section className="font-mono h-full flex flex-col justify-between">
               <div className="font-mono flex flex-col gap-8 mb-12">
-                <div className="flex flex-col gap-2">
-                  <label className="text-sm font-semibold">Font</label>
-                  <div className="flex flex-row justify-between gap-4">
-                    <button
-                      onClick={() => setFont("Geist")}
-                      className={`h-full w-full border p-2 rounded-md hover:cursor-pointer hover:border-amber-500 transition-all duration-300 ${
-                        font === "Geist"
-                          ? "border-amber-500"
-                          : "border-amber-200"
-                      }`}
-                    >
-                      Geist
-                    </button>
-                    <button
-                      onClick={() => setFont("IBM Plex")}
-                      className={`h-full w-full border p-2 rounded-md hover:cursor-pointer hover:border-amber-500 transition-all duration-300 ${
-                        font === "IBM Plex"
-                          ? "border-amber-500"
-                          : "border-amber-200"
-                      }`}
-                    >
-                      IBM Plex
-                    </button>
-                    <button
-                      onClick={() => setFont("Roboto")}
-                      className={`h-full w-full border p-2 rounded-md hover:cursor-pointer hover:border-amber-500 transition-all duration-300 ${
-                        font === "Roboto"
-                          ? "border-amber-500"
-                          : "border-amber-200"
-                      }`}
-                    >
-                      Roboto
-                    </button>
-                  </div>
-                </div>
-
-                <div className="flex flex-col gap-2">
-                  <label className="text-sm font-semibold">Time Format</label>
-                  <div className="flex flex-row justify-between gap-4">
-                    <button
-                      onClick={() => setTimeFormat("12h")}
-                      className={`h-full w-full border p-2 rounded-md hover:cursor-pointer hover:border-amber-500 transition-all duration-300 ${
-                        timeFormat === "12h"
-                          ? "border-amber-500"
-                          : "border-amber-200"
-                      }`}
-                    >
-                      12h (AM/PM)
-                    </button>
-                    <button
-                      onClick={() => setTimeFormat("24h")}
-                      className={`h-full w-full border p-2 rounded-md hover:cursor-pointer hover:border-amber-500 transition-all duration-300 ${
-                        timeFormat === "24h"
-                          ? "border-amber-500"
-                          : "border-amber-200"
-                      }`}
-                    >
-                      24h
-                    </button>
-                  </div>
-                </div>
+                <FontSelector />
+                <TimeFormatSelector />
               </div>
               <Footer />
             </section>
@@ -101,6 +41,80 @@ export default function Settings() {
     </>
   );
 }
+
+const FontSelector = () => {
+  const { font, setFont } = useSettings();
+
+  return (
+    <div className="flex flex-col gap-2">
+      <label className="text-sm font-semibold">Font</label>
+      <div className="flex flex-row justify-between gap-4">
+        <button
+          onClick={() => setFont("Geist")}
+          className={`h-full w-full border p-2 rounded-md hover:cursor-pointer hover:border-amber-500 transition-all duration-300 ${
+            font === "Geist"
+              ? "border-amber-500 bg-amber-100/50"
+              : "border-amber-200"
+          }`}
+        >
+          Geist
+        </button>
+        <button
+          onClick={() => setFont("IBM Plex")}
+          className={`h-full w-full border p-2 rounded-md hover:cursor-pointer hover:border-amber-500 transition-all duration-300 ${
+            font === "IBM Plex"
+              ? "border-amber-500 bg-amber-100/50"
+              : "border-amber-200"
+          }`}
+        >
+          IBM Plex
+        </button>
+        <button
+          onClick={() => setFont("Roboto")}
+          className={`h-full w-full border p-2 rounded-md hover:cursor-pointer hover:border-amber-500 transition-all duration-300 ${
+            font === "Roboto"
+              ? "border-amber-500 bg-amber-100/50"
+              : "border-amber-200"
+          }`}
+        >
+          Roboto
+        </button>
+      </div>
+    </div>
+  );
+};
+
+const TimeFormatSelector = () => {
+  const { timeFormat, setTimeFormat } = useSettings();
+
+  return (
+    <div className="flex flex-col gap-2">
+      <label className="text-sm font-semibold">Time Format</label>
+      <div className="flex flex-row justify-between gap-4">
+        <button
+          onClick={() => setTimeFormat("12h")}
+          className={`h-full w-full border p-2 rounded-md hover:cursor-pointer hover:border-amber-500 transition-all duration-300 ${
+            timeFormat === "12h"
+              ? "border-amber-500 bg-amber-100/50"
+              : "border-amber-200"
+          }`}
+        >
+          12h (AM/PM)
+        </button>
+        <button
+          onClick={() => setTimeFormat("24h")}
+          className={`h-full w-full border p-2 rounded-md hover:cursor-pointer hover:border-amber-500 transition-all duration-300 ${
+            timeFormat === "24h"
+              ? "border-amber-500 bg-amber-100/50"
+              : "border-amber-200"
+          }`}
+        >
+          24h
+        </button>
+      </div>
+    </div>
+  );
+};
 
 const SettingsIcon = () => (
   <svg
