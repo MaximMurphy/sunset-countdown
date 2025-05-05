@@ -86,19 +86,19 @@ export default function Sun() {
   return (
     <div className="absolute inset-0 flex justify-center overflow-hidden">
       <div
-        className="w-80 h-80 bg-amber-300 rounded-full transition-transform duration-1000 ease-in-out"
+        className="w-60 md:w-80 h-60 md:h-80 bg-amber-300 rounded-full transition-transform duration-1000 ease-in-out"
         style={{
           transform: `translateY(${position}vh)`,
         }}
       />
       <div
-        className="absolute w-80 h-80 bg-amber-400 rounded-full transition-transform duration-1000 ease-in-out opacity-70"
+        className="absolute w-60 md:w-80 h-60 md:h-80 bg-amber-400 rounded-full transition-transform duration-1000 ease-in-out opacity-70"
         style={{
           transform: `translateY(${position + 2}vh)`,
         }}
       />
       <div
-        className="absolute w-80 h-80 bg-amber-500 rounded-full transition-transform duration-1000 ease-in-out opacity-50"
+        className="absolute w-60 md:w-80 h-60 md:h-80 bg-amber-500 rounded-full transition-transform duration-1000 ease-in-out opacity-50"
         style={{
           transform: `translateY(${position + 4}vh)`,
         }}

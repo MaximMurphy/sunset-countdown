@@ -35,6 +35,6 @@ export default function Sky() {
   console.log(currentColorIndex);
 
   return (
-    <div className="absolute w-full h-full" style={{ background: "#01123b" }} />
+    <div className="absolute w-full h-full" style={{ background: "#0246e0" }} />
   );
 }

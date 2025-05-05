@@ -9,7 +9,7 @@ import Settings from "./components/Settings";
 export default function Home() {
   return (
     <SunProvider>
-      <div className="relative h-screen flex flex-col items-center justify-center">
+      <div className="relative h-svh md:h-screen flex flex-col items-center justify-center">
         <svg
           viewBox="0 0 450 450"
           xmlns="http://www.w3.org/2000/svg"

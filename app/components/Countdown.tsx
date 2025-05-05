@@ -96,14 +96,14 @@ export default function Countdown() {
 
   if (!sunData) {
     return (
-      <div className="font-mono text-7xl md:text-8xl lg:text-9xl font-medium text-amber-50">
+      <div className="font-mono text-[3.5rem] md:text-[10rem] lg:text-[14rem] font-medium text-amber-50">
         Loading...
       </div>
     );
   }
 
   return (
-    <div className="flex flex-col items-center justify-center gap-4 font-mono text-7xl md:text-8xl lg:text-[14rem] font-medium text-amber-50">
+    <div className="flex flex-col items-center justify-center gap-4 font-mono text-[5rem] md:text-[10rem] lg:text-[14rem] font-medium text-amber-50">
       {timeLeft}
     </div>
   );
