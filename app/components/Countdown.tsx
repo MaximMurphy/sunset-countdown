@@ -36,7 +36,44 @@ export default function Countdown() {
       const diff = sunEventTime.getTime() - now.getTime();
 
       if (diff <= 0) {
-        setTimeLeft("Sunset has passed");
+        // If the current event has passed, get the next event and recalculate
+        const nextEvent = getNextEvent();
+        if (!nextEvent) {
+          setTimeLeft("Error");
+          return;
+        }
+
+        const [nextTime, nextPeriod] = nextEvent.time.split(" ");
+        const [nextHours, nextMinutes, nextSeconds] = nextTime
+          .split(":")
+          .map(Number);
+
+        const nextEventTime = new Date(now);
+        nextEventTime.setHours(
+          nextPeriod === "PM" ? nextHours + 12 : nextHours,
+          nextMinutes,
+          nextSeconds,
+          0
+        );
+
+        // If the next event is tomorrow, add a day
+        if (nextEventTime < now) {
+          nextEventTime.setDate(nextEventTime.getDate() + 1);
+        }
+
+        const nextDiff = nextEventTime.getTime() - now.getTime();
+
+        const hoursDiff = Math.floor(nextDiff / (1000 * 60 * 60));
+        const minutesDiff = Math.floor(
+          (nextDiff % (1000 * 60 * 60)) / (1000 * 60)
+        );
+        const secondsDiff = Math.floor((nextDiff % (1000 * 60)) / 1000);
+
+        setTimeLeft(
+          `${hoursDiff.toString().padStart(2, "0")}:${minutesDiff
+            .toString()
+            .padStart(2, "0")}:${secondsDiff.toString().padStart(2, "0")}`
+        );
         return;
       }
 

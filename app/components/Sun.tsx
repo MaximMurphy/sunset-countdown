@@ -87,21 +87,18 @@ export default function Sun() {
         className="w-95 h-95 bg-amber-300 rounded-full transition-transform duration-1000 ease-in-out"
         style={{
           transform: `translateY(${position}vh)`,
-          marginTop: "32px",
         }}
       />
       <div
         className="absolute w-95 h-95 bg-amber-400 rounded-full transition-transform duration-1000 ease-in-out opacity-70"
         style={{
           transform: `translateY(${position + 3}vh)`,
-          marginTop: "32px",
         }}
       />
       <div
         className="absolute w-95 h-95 bg-amber-500 rounded-full transition-transform duration-1000 ease-in-out opacity-50"
         style={{
           transform: `translateY(${position + 6}vh)`,
-          marginTop: "32px",
         }}
       />
     </div>
