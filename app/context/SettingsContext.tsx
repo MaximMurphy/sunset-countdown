@@ -2,7 +2,7 @@
 
 import { createContext, useContext, useState, ReactNode } from "react";
 
-type Font = "Geist" | "IBM Plex" | "Roboto";
+type Font = "Geist" | "IBM Plex" | "Space";
 type TimeFormat = "12h" | "24h";
 type Countdown = "ON" | "OFF";
 type CountdownPosition = "left" | "middle" | "right";

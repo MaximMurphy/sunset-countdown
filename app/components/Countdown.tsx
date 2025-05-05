@@ -2,10 +2,12 @@
 
 import { useState, useEffect } from "react";
 import { useSun } from "../context/SunContext";
+import { useSettings } from "../context/SettingsContext";
 
 export default function Countdown() {
   const { sunData, getNextEvent } = useSun();
   const [timeLeft, setTimeLeft] = useState<string>("");
+  const { countdown } = useSettings();
 
   useEffect(() => {
     if (!sunData) return;
@@ -103,7 +105,11 @@ export default function Countdown() {
   }
 
   return (
-    <div className="flex flex-row items-center justify-center gap-4 font-mono text-[4rem] md:text-[10rem] lg:text-[14rem] font-medium text-amber-50">
+    <div
+      className={`flex flex-row items-center justify-center gap-4 font-mono text-[4rem] md:text-[10rem] lg:text-[14rem] font-medium text-amber-50 transition-all duration-500 ease-in-out ${
+        countdown === "ON" ? "opacity-100" : "opacity-0"
+      }`}
+    >
       <div className="w-[1.2em] text-right">{timeLeft.split(":")[0]}</div>
       <div>:</div>
       <div className="w-[1.2em] text-center">{timeLeft.split(":")[1]}</div>

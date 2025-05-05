@@ -71,9 +71,9 @@ const FontSelector = () => {
           IBM Plex
         </button>
         <button
-          onClick={() => setFont("Roboto")}
+          onClick={() => setFont("Space")}
           className={`h-full w-full border p-2 rounded-md hover:cursor-pointer hover:border-amber-500 transition-all duration-300 ${
-            font === "Roboto"
+            font === "Space"
               ? "border-amber-500 bg-amber-100/50"
               : "border-amber-200"
           }`}

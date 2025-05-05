@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, IBM_Plex_Mono } from "next/font/google";
+import { Geist, Geist_Mono, IBM_Plex_Mono, Space_Mono } from "next/font/google";
 import "./globals.css";
 import { SunProvider } from "./context/SunContext";
 import { DayCycleProvider } from "./context/DayCycleContext";
@@ -21,6 +21,12 @@ const ibmPlexMono = IBM_Plex_Mono({
   weight: ["400", "500", "600", "700"],
 });
 
+const spaceMono = Space_Mono({
+  variable: "--font-space-mono",
+  subsets: ["latin"],
+  weight: ["400", "700"],
+});
+
 export const metadata: Metadata = {
   title: "Sunset Countdown",
   description: "Displaying the sunset time for your location",
@@ -34,7 +40,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${ibmPlexMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${ibmPlexMono.variable} ${spaceMono.variable} antialiased`}
       >
         <SettingsProvider>
           <SunProvider>
