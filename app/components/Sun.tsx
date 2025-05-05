@@ -26,13 +26,15 @@ export default function Sun() {
 
       // Define the transition periods (2 hours = 7200000 milliseconds)
       const transitionPeriod = 7200000;
+      // Define the noon transition period (1 hour = 3600000 milliseconds)
+      const noonTransitionPeriod = 3600000;
 
       const isRising = now < new Date(sunrise.getTime() + transitionPeriod);
       const isSetting = now > new Date(sunset.getTime() - transitionPeriod);
       const isBeforeNoon =
-        now < new Date(solarNoon.getTime() - transitionPeriod);
+        now < new Date(solarNoon.getTime() - noonTransitionPeriod);
       const isAfterNoon =
-        now > new Date(solarNoon.getTime() + transitionPeriod);
+        now > new Date(solarNoon.getTime() + noonTransitionPeriod);
       const isAtNoon = !isBeforeNoon && !isAfterNoon;
 
       let position;
@@ -52,24 +54,24 @@ export default function Sun() {
           transitionPeriod;
         position = 30 + 70 * setProgress;
       } else if (isAtNoon) {
-        // During the 4-hour period around solar noon (2 hours before and after), stay at position 0
-        position = 0;
+        // During the 2-hour period around solar noon (1 hour before and after), stay at position 2
+        position = 2;
       } else if (isBeforeNoon) {
-        // Between sunrise transition and noon transition, rise from 30 to 0
+        // Between sunrise transition and noon transition, rise from 30 to 2
         const noonProgress =
           (now.getTime() - (sunrise.getTime() + transitionPeriod)) /
           (solarNoon.getTime() -
-            transitionPeriod -
+            noonTransitionPeriod -
             (sunrise.getTime() + transitionPeriod));
-        position = 30 - 30 * noonProgress;
+        position = 30 - 28 * noonProgress;
       } else {
-        // Between noon transition and sunset transition, descend from 0 to 30
+        // Between noon transition and sunset transition, descend from 2 to 30
         const noonProgress =
-          (now.getTime() - (solarNoon.getTime() + transitionPeriod)) /
+          (now.getTime() - (solarNoon.getTime() + noonTransitionPeriod)) /
           (sunset.getTime() -
             transitionPeriod -
-            (solarNoon.getTime() + transitionPeriod));
-        position = 0 + 30 * noonProgress;
+            (solarNoon.getTime() + noonTransitionPeriod));
+        position = 2 + 28 * noonProgress;
       }
 
       setPosition(position);
@@ -84,21 +86,21 @@ export default function Sun() {
   return (
     <div className="absolute inset-0 flex justify-center overflow-hidden">
       <div
-        className="w-95 h-95 bg-amber-300 rounded-full transition-transform duration-1000 ease-in-out"
+        className="w-80 h-80 bg-amber-300 rounded-full transition-transform duration-1000 ease-in-out"
         style={{
           transform: `translateY(${position}vh)`,
         }}
       />
       <div
-        className="absolute w-95 h-95 bg-amber-400 rounded-full transition-transform duration-1000 ease-in-out opacity-70"
+        className="absolute w-80 h-80 bg-amber-400 rounded-full transition-transform duration-1000 ease-in-out opacity-70"
         style={{
-          transform: `translateY(${position + 3}vh)`,
+          transform: `translateY(${position + 2}vh)`,
         }}
       />
       <div
-        className="absolute w-95 h-95 bg-amber-500 rounded-full transition-transform duration-1000 ease-in-out opacity-50"
+        className="absolute w-80 h-80 bg-amber-500 rounded-full transition-transform duration-1000 ease-in-out opacity-50"
         style={{
-          transform: `translateY(${position + 6}vh)`,
+          transform: `translateY(${position + 4}vh)`,
         }}
       />
     </div>
