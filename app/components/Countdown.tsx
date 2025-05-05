@@ -7,7 +7,7 @@ import { useSettings } from "../context/SettingsContext";
 export default function Countdown() {
   const { sunData, getNextEvent } = useSun();
   const [timeLeft, setTimeLeft] = useState<string>("");
-  const { countdown, countdownPosition } = useSettings();
+  const { countdown, countdownPosition, countdownSize } = useSettings();
 
   useEffect(() => {
     if (!sunData) return;
@@ -115,8 +115,14 @@ export default function Countdown() {
       }`}
     >
       <div
-        className={`flex flex-row items-center justify-center gap-4 font-mono text-[4rem] md:text-[10rem] lg:text-[14rem] font-medium text-amber-50 transition-all duration-500 ease-in-out ${
+        className={`flex flex-row items-center justify-center gap-4 font-mono  font-medium text-amber-50 transition-all duration-500 ease-in-out ${
           countdown === "ON" ? "opacity-100" : "opacity-0"
+        } ${
+          countdownSize === "sm"
+            ? "text-[1rem] md:text-[1rem] lg:text-[1rem]"
+            : countdownSize === "md"
+            ? "text-[2rem] md:text-[4rem] lg:text-[6rem]"
+            : "text-[4rem] md:text-[10rem] lg:text-[14rem]"
         }`}
       >
         <div className="w-[1.2em] text-right">{timeLeft.split(":")[0]}</div>
