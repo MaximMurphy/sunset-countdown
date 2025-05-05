@@ -115,17 +115,30 @@ const CountdownSelector = () => {
           </div>
         </button>
       </section>
-      <CountdownToggle />
+      {countdown === "ON" ? (
+        <CountdownToggle height="180px" opacity="1" />
+      ) : (
+        <CountdownToggle height="0px" opacity="0" />
+      )}
     </div>
   );
 };
 
-const CountdownToggle = () => {
+const CountdownToggle = ({
+  height,
+  opacity,
+}: {
+  height: string;
+  opacity: string;
+}) => {
   const { countdownPosition, setCountdownPosition } = useSettings();
   const { countdownSize, setCountdownSize } = useSettings();
 
   return (
-    <section className="w-2/3 flex flex-col gap-4">
+    <section
+      className="w-2/3 flex flex-col gap-4 transition-all duration-500 ease-in-out overflow-hidden"
+      style={{ height: height, opacity: opacity }}
+    >
       <div className="flex flex-col gap-2">
         <label className="text-sm font-semibold">Position</label>
         <div className="flex flex-row justify-between gap-4">
