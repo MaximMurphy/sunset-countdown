@@ -115,24 +115,92 @@ const CountdownSelector = () => {
           </div>
         </button>
       </section>
-      <section className="w-2/3 flex flex-col gap-2">
-        <div>
-          <label className="text-sm font-semibold">Countdown</label>
-          <input
-            type="number"
-            className="w-full h-12 rounded-md border border-amber-200 p-2"
-          />
-        </div>
-        <div>
-          {" "}
-          <label className="text-sm font-semibold">Countdown</label>
-          <input
-            type="number"
-            className="w-full h-12 rounded-md border border-amber-200 p-2"
-          />
-        </div>
-      </section>
+      <CountdownToggle />
     </div>
+  );
+};
+
+const CountdownToggle = () => {
+  const { countdownPosition, setCountdownPosition } = useSettings();
+  const { countdownSize, setCountdownSize } = useSettings();
+
+  return (
+    <section className="w-2/3 flex flex-col gap-4">
+      <div className="flex flex-col gap-2">
+        <label className="text-sm font-semibold">Position</label>
+        <div className="flex flex-row justify-between gap-4">
+          <div className="w-full flex flex-row justify-between gap-4">
+            <button
+              onClick={() => setCountdownPosition("left")}
+              className={`h-full w-1/3 border p-2 rounded-md hover:cursor-pointer hover:border-amber-500 transition-all duration-300 ${
+                countdownPosition === "left"
+                  ? "border-amber-500 bg-amber-100/50"
+                  : "border-amber-200"
+              }`}
+            >
+              Left
+            </button>
+            <button
+              onClick={() => setCountdownPosition("middle")}
+              className={`h-full w-1/3 border p-2 rounded-md hover:cursor-pointer hover:border-amber-500 transition-all duration-300 ${
+                countdownPosition === "middle"
+                  ? "border-amber-500 bg-amber-100/50"
+                  : "border-amber-200"
+              }`}
+            >
+              Middle
+            </button>
+            <button
+              onClick={() => setCountdownPosition("right")}
+              className={`h-full w-1/3 border p-2 rounded-md hover:cursor-pointer hover:border-amber-500 transition-all duration-300 ${
+                countdownPosition === "right"
+                  ? "border-amber-500 bg-amber-100/50"
+                  : "border-amber-200"
+              }`}
+            >
+              Right
+            </button>
+          </div>
+        </div>
+      </div>
+      <div className="flex flex-col gap-2">
+        <label className="text-sm font-semibold">Size</label>
+        <div className="flex flex-row justify-between gap-4">
+          <div className="w-full flex flex-row justify-between gap-4">
+            <button
+              onClick={() => setCountdownSize("sm")}
+              className={`h-full w-1/3 border p-2 rounded-md hover:cursor-pointer hover:border-amber-500 transition-all duration-300 ${
+                countdownSize === "sm"
+                  ? "border-amber-500 bg-amber-100/50"
+                  : "border-amber-200"
+              }`}
+            >
+              Sm
+            </button>
+            <button
+              onClick={() => setCountdownSize("md")}
+              className={`h-full w-1/3 border p-2 rounded-md hover:cursor-pointer hover:border-amber-500 transition-all duration-300 ${
+                countdownSize === "md"
+                  ? "border-amber-500 bg-amber-100/50"
+                  : "border-amber-200"
+              }`}
+            >
+              Md
+            </button>
+            <button
+              onClick={() => setCountdownSize("lg")}
+              className={`h-full w-1/3 border p-2 rounded-md hover:cursor-pointer hover:border-amber-500 transition-all duration-300 ${
+                countdownSize === "lg"
+                  ? "border-amber-500 bg-amber-100/50"
+                  : "border-amber-200"
+              }`}
+            >
+              Lg
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
   );
 };
 
