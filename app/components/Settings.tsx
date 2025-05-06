@@ -28,8 +28,8 @@ export default function Settings() {
                 ✕
               </button>
             </div>
-            <section className="font-mono h-full flex flex-col justify-between">
-              <div className="flex flex-col gap-8 mb-12">
+            <section className="h-full flex flex-col justify-between">
+              <div className="flex flex-col gap-8 mb-12 font-mono">
                 <FontSelector />
                 <CountdownSelector />
                 <TimeFormatSelector />
