@@ -67,7 +67,7 @@ export function DayCycleProvider({ children }: { children: ReactNode }) {
           (now.getTime() - (sunset.getTime() - transitionPeriod)) /
           transitionPeriod;
         position = 30 + 70 * setProgress;
-        colorIndex = 8 - Math.floor(setProgress * 4); // Transition from day to night
+        colorIndex = 5 - Math.floor(setProgress * 4); // Transition from day to night
       } else if (isAtNoon) {
         position = 2;
         colorIndex = 8; // Midday

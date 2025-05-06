@@ -29,7 +29,7 @@ export default function Settings() {
               </button>
             </div>
             <section className="font-mono h-full flex flex-col justify-between">
-              <div className="font-mono flex flex-col gap-8 mb-12">
+              <div className="flex flex-col gap-8 mb-12">
                 <FontSelector />
                 <CountdownSelector />
                 <TimeFormatSelector />
@@ -142,7 +142,7 @@ const CountdownToggle = ({
       <div className="flex flex-col gap-2">
         <label className="text-sm font-semibold">Position</label>
         <div className="flex flex-row justify-between gap-4">
-          <div className="w-full flex flex-row justify-between gap-4 text-xs">
+          <div className="w-full flex flex-row justify-between gap-4">
             <button
               onClick={() => setCountdownPosition("left")}
               className={`h-full w-1/3 border p-2 rounded-md hover:cursor-pointer hover:border-amber-500 transition-all duration-300 ${
