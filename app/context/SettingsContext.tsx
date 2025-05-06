@@ -14,11 +14,13 @@ interface SettingsContextType {
   countdown: Countdown;
   countdownPosition: CountdownPosition;
   countdownSize: CountdownSize;
+  locationVisible: boolean;
   setFont: (font: Font) => void;
   setTimeFormat: (format: TimeFormat) => void;
   setCountdown: (countdown: Countdown) => void;
   setCountdownPosition: (position: CountdownPosition) => void;
   setCountdownSize: (size: CountdownSize) => void;
+  setLocationVisible: (visible: boolean) => void;
 }
 
 const SettingsContext = createContext<SettingsContextType | undefined>(
@@ -32,6 +34,7 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
   const [countdownPosition, setCountdownPosition] =
     useState<CountdownPosition>("middle");
   const [countdownSize, setCountdownSize] = useState<CountdownSize>("lg");
+  const [locationVisible, setLocationVisible] = useState<boolean>(false);
 
   return (
     <SettingsContext.Provider
@@ -41,11 +44,13 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
         countdown,
         countdownPosition,
         countdownSize,
+        locationVisible,
         setFont,
         setTimeFormat,
         setCountdown,
         setCountdownPosition,
         setCountdownSize,
+        setLocationVisible,
       }}
     >
       {children}

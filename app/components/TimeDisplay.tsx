@@ -5,7 +5,7 @@ import { useSettings } from "../context/SettingsContext";
 
 export default function TimeDisplay() {
   const { sunData, getNextEvent, locationName } = useSun();
-  const { timeFormat } = useSettings();
+  const { timeFormat, locationVisible } = useSettings();
   const nextEvent = getNextEvent();
 
   let timePretty =
@@ -43,8 +43,7 @@ export default function TimeDisplay() {
   return (
     <div className="font-mono font-medium text-sm md:text-[1rem] text-amber-100">
       {nextEvent?.type === "sunset" ? "Sunset" : "Sunrise at"} {timePretty}
-      {", "}
-      {locationName && locationName}
+      {locationName && locationVisible && ", " + locationName}
     </div>
   );
 }

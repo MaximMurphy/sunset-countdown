@@ -33,6 +33,7 @@ export default function Settings() {
                 <FontSelector />
                 <CountdownSelector />
                 <TimeFormatSelector />
+                <LocationSelector />
               </div>
               <Footer />
             </section>
@@ -248,6 +249,36 @@ const TimeFormatSelector = () => {
         </button>
       </div>
     </div>
+  );
+};
+
+const LocationSelector = () => {
+  const { locationVisible, setLocationVisible } = useSettings();
+
+  return (
+    <section className="w-1/3 flex flex-col gap-2">
+      <label className="text-sm font-semibold">Location</label>
+      <button
+        onClick={() => setLocationVisible(!locationVisible)}
+        className={`relative h-12 w-24 rounded-md border transition-all duration-300 hover:cursor-pointer hover:border-amber-500 ${
+          locationVisible ? "border-amber-500 bg-amber-500" : "border-amber-200"
+        }`}
+      >
+        <div
+          className={`absolute top-2 h-8 w-12 rounded-md bg-amber-200 transition-all duration-300 ${
+            locationVisible ? "left-10" : "left-2"
+          }`}
+        >
+          <span
+            className={`h-full text-sm font-semibold flex items-center justify-center ${
+              locationVisible ? "text-amber-500" : "text-amber-50"
+            }`}
+          >
+            {locationVisible ? "On" : "Off"}
+          </span>
+        </div>
+      </button>
+    </section>
   );
 };
 
