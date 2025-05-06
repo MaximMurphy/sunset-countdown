@@ -20,7 +20,7 @@ export default function Settings() {
         <div className="fixed inset-0 bg-opacity-50 flex items-center justify-center z-40">
           <div className="bg-amber-50 text-[#000717] p-6 rounded-xl shadow-xl max-w-md w-full mx-4">
             <div className="flex justify-between items-center mb-6">
-              <h2 className="text-xl font-semibold">Settings</h2>
+              <h2 className="text-xl font-semibold font-mono">Settings</h2>
               <button
                 onClick={() => setIsOpen(false)}
                 className="hover:text-amber-500 hover:scale-110 hover:cursor-pointer transition-all duration-300"
@@ -28,8 +28,8 @@ export default function Settings() {
                 ✕
               </button>
             </div>
-            <section className="h-full flex flex-col justify-between">
-              <div className="flex flex-col gap-8 mb-12 font-mono">
+            <section className="font-mono h-full flex flex-col justify-between">
+              <div className="flex flex-col gap-8 mb-12">
                 <FontSelector />
                 <CountdownSelector />
                 <TimeFormatSelector />
@@ -53,33 +53,36 @@ const FontSelector = () => {
       <div className="flex flex-row justify-between gap-4">
         <button
           onClick={() => setFont("Geist")}
-          className={`h-full w-full border p-2 rounded-md hover:cursor-pointer hover:border-amber-500 transition-all duration-300 ${
+          className={`h-full w-full border p-2 rounded-md font-semibold hover:cursor-pointer hover:border-amber-500 transition-all duration-300 ${
             font === "Geist"
               ? "border-amber-500 bg-amber-100/50"
               : "border-amber-200"
           }`}
+          style={{ fontFamily: "Geist" }}
         >
           Geist
         </button>
         <button
+          onClick={() => setFont("Chivo")}
+          className={`h-full w-full border p-2 rounded-md font-semibold hover:cursor-pointer hover:border-amber-500 transition-all duration-300 ${
+            font === "Chivo"
+              ? "border-amber-500 bg-amber-100/50"
+              : "border-amber-200"
+          }`}
+          style={{ fontFamily: "Chivo" }}
+        >
+          Chivo
+        </button>
+        <button
           onClick={() => setFont("IBM Plex")}
-          className={`h-full w-full border p-2 rounded-md hover:cursor-pointer hover:border-amber-500 transition-all duration-300 ${
+          className={`h-full w-full border p-2 rounded-md font-semibold hover:cursor-pointer hover:border-amber-500 transition-all duration-300 ${
             font === "IBM Plex"
               ? "border-amber-500 bg-amber-100/50"
               : "border-amber-200"
           }`}
+          style={{ fontFamily: "IBM Plex Mono" }}
         >
           IBM Plex
-        </button>
-        <button
-          onClick={() => setFont("Space")}
-          className={`h-full w-full border p-2 rounded-md hover:cursor-pointer hover:border-amber-500 transition-all duration-300 ${
-            font === "Space"
-              ? "border-amber-500 bg-amber-100/50"
-              : "border-amber-200"
-          }`}
-        >
-          Roboto
         </button>
       </div>
     </div>

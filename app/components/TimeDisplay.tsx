@@ -34,14 +34,14 @@ export default function TimeDisplay() {
 
   if (!sunData) {
     return (
-      <div className="font-mono font-medium text-sm md:text-[1rem] text-amber-100">
+      <div className="font-medium text-sm md:text-[1rem] text-amber-100">
         Loading...
       </div>
     );
   }
 
   return (
-    <div className="font-mono font-medium text-sm md:text-[1rem] text-amber-100">
+    <div className="font-medium text-sm md:text-[1rem] text-amber-100">
       {nextEvent?.type === "sunset" ? "Sunset" : "Sunrise at"} {timePretty}
       {locationName && locationVisible && " - " + locationName}
     </div>

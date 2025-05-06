@@ -98,7 +98,7 @@ export default function Countdown() {
 
   if (!sunData) {
     return (
-      <div className="font-mono text-[4rem] md:text-[10rem] lg:text-[14rem] font-medium text-amber-50">
+      <div className="text-[4rem] md:text-[10rem] lg:text-[14rem] font-medium text-amber-50">
         Loading...
       </div>
     );
@@ -115,7 +115,7 @@ export default function Countdown() {
       }`}
     >
       <div
-        className={`flex flex-row items-center justify-center gap-4 font-mono font-medium text-amber-50 transition-all duration-500 ease-in-out ${
+        className={`flex flex-row items-center justify-center gap-4 font-medium text-amber-50 transition-all duration-500 ease-in-out ${
           countdown === "ON" ? "opacity-100" : "opacity-0"
         } ${
           countdownSize === "sm"
