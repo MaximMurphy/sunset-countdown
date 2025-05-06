@@ -136,87 +136,83 @@ const CountdownToggle = ({
 
   return (
     <section
-      className="w-2/3 flex flex-col gap-4 transition-all duration-500 ease-in-out overflow-hidden"
+      className="w-2/3 h-fit flex flex-col gap-4 transition-all duration-500 ease-in-out overflow-hidden"
       style={{ height: height, opacity: opacity }}
     >
-      <div className="flex flex-col gap-2">
+      <div className="h-full flex flex-col gap-2">
         <label className="text-sm font-semibold">Position</label>
-        <div className="flex flex-row justify-between gap-4">
-          <div className="w-full flex flex-row justify-between gap-4">
-            <button
-              onClick={() => setCountdownPosition("left")}
-              className={`h-full w-1/3 border p-2 rounded-md hover:cursor-pointer hover:border-amber-500 transition-all duration-300 ${
-                countdownPosition === "left"
-                  ? "border-amber-500 bg-amber-100/50"
-                  : "border-amber-200"
-              } ${
-                countdownSize === "lg" &&
-                "opacity-40 hover:cursor-not-allowed pointer-events-none md:opacity-100 md:hover:cursor-pointer md:pointer-events-auto"
-              }`}
-            >
-              L
-            </button>
-            <button
-              onClick={() => setCountdownPosition("middle")}
-              className={`h-full w-1/3 border p-2 rounded-md hover:cursor-pointer hover:border-amber-500 transition-all duration-300 ${
-                countdownPosition === "middle"
-                  ? "border-amber-500 bg-amber-100/50"
-                  : "border-amber-200"
-              }`}
-            >
-              |
-            </button>
-            <button
-              onClick={() => setCountdownPosition("right")}
-              className={`h-full w-1/3 border p-2 rounded-md hover:cursor-pointer hover:border-amber-500 transition-all duration-300 ${
-                countdownPosition === "right"
-                  ? "border-amber-500 bg-amber-100/50"
-                  : "border-amber-200"
-              } ${
-                countdownSize === "lg" &&
-                "opacity-40 hover:cursor-not-allowed pointer-events-none md:opacity-100 md:hover:cursor-pointer md:pointer-events-auto"
-              }`}
-            >
-              R
-            </button>
-          </div>
+        <div className="w-full h-full flex flex-row justify-between gap-4">
+          <button
+            onClick={() => setCountdownPosition("left")}
+            className={`h-full w-1/3 border p-2 rounded-md hover:cursor-pointer hover:border-amber-500 transition-all duration-300 ${
+              countdownPosition === "left"
+                ? "border-amber-500 bg-amber-100/50"
+                : "border-amber-200"
+            } ${
+              countdownSize === "lg" &&
+              "opacity-40 hover:cursor-not-allowed pointer-events-none md:opacity-100 md:hover:cursor-pointer md:pointer-events-auto"
+            }`}
+          >
+            L
+          </button>
+          <button
+            onClick={() => setCountdownPosition("middle")}
+            className={`h-full w-1/3 border p-2 rounded-md hover:cursor-pointer hover:border-amber-500 transition-all duration-300 ${
+              countdownPosition === "middle"
+                ? "border-amber-500 bg-amber-100/50"
+                : "border-amber-200"
+            }`}
+          >
+            |
+          </button>
+          <button
+            onClick={() => setCountdownPosition("right")}
+            className={`h-full w-1/3 border p-2 rounded-md hover:cursor-pointer hover:border-amber-500 transition-all duration-300 ${
+              countdownPosition === "right"
+                ? "border-amber-500 bg-amber-100/50"
+                : "border-amber-200"
+            } ${
+              countdownSize === "lg" &&
+              "opacity-40 hover:cursor-not-allowed pointer-events-none md:opacity-100 md:hover:cursor-pointer md:pointer-events-auto"
+            }`}
+          >
+            R
+          </button>
         </div>
       </div>
-      <div className="flex flex-col gap-2">
+      <div className="h-full flex flex-col gap-2">
         <label className="text-sm font-semibold">Size</label>
-        <div className="flex flex-row justify-between gap-4">
-          <div className="w-full flex flex-row justify-between gap-4">
-            <button
-              onClick={() => setCountdownSize("sm")}
-              className={`h-full w-1/3 border p-2 rounded-md hover:cursor-pointer hover:border-amber-500 transition-all duration-300 ${
-                countdownSize === "sm"
-                  ? "border-amber-500 bg-amber-100/50"
-                  : "border-amber-200"
-              }`}
-            >
-              Sm
-            </button>
-            <button
-              onClick={() => setCountdownSize("md")}
-              className={`h-full w-1/3 border p-2 rounded-md hover:cursor-pointer hover:border-amber-500 transition-all duration-300 ${
-                countdownSize === "md"
-                  ? "border-amber-500 bg-amber-100/50"
-                  : "border-amber-200"
-              }`}
-            >
-              Md
-            </button>
-            <button
-              onClick={() => setCountdownSize("lg")}
-              className={`h-full w-1/3 border p-2 rounded-md hover:cursor-pointer hover:border-amber-500 transition-all duration-300 ${
-                countdownSize === "lg"
-                  ? "border-amber-500 bg-amber-100/50"
-                  : "border-amber-200"
-              }`}
-            >
-              Lg
-            </button>
-          </div>
+        <div className="w-full h-full flex flex-row justify-between gap-4">
+          <button
+            onClick={() => setCountdownSize("sm")}
+            className={`h-full w-1/3 border p-2 rounded-md hover:cursor-pointer hover:border-amber-500 transition-all duration-300 ${
+              countdownSize === "sm"
+                ? "border-amber-500 bg-amber-100/50"
+                : "border-amber-200"
+            }`}
+          >
+            Sm
+          </button>
+          <button
+            onClick={() => setCountdownSize("md")}
+            className={`h-full w-1/3 border p-2 rounded-md hover:cursor-pointer hover:border-amber-500 transition-all duration-300 ${
+              countdownSize === "md"
+                ? "border-amber-500 bg-amber-100/50"
+                : "border-amber-200"
+            }`}
+          >
+            Md
+          </button>
+          <button
+            onClick={() => setCountdownSize("lg")}
+            className={`h-full w-1/3 border p-2 rounded-md hover:cursor-pointer hover:border-amber-500 transition-all duration-300 ${
+              countdownSize === "lg"
+                ? "border-amber-500 bg-amber-100/50"
+                : "border-amber-200"
+            }`}
+          >
+            Lg
+          </button>
         </div>
       </div>
     </section>
