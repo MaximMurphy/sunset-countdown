@@ -18,6 +18,8 @@ interface SunData {
 interface SunContextType {
   sunData: SunData | null;
   setSunData: (data: SunData | null) => void;
+  locationName: string | null;
+  setLocationName: (name: string | null) => void;
   getNextEvent: () => { type: "sunrise" | "sunset"; time: string } | null;
 }
 
@@ -25,6 +27,7 @@ const SunContext = createContext<SunContextType | undefined>(undefined);
 
 export function SunProvider({ children }: { children: ReactNode }) {
   const [sunData, setSunData] = useState<SunData | null>(null);
+  const [locationName, setLocationName] = useState<string | null>(null);
 
   const getNextEvent = () => {
     if (!sunData) return null;
@@ -51,7 +54,15 @@ export function SunProvider({ children }: { children: ReactNode }) {
   };
 
   return (
-    <SunContext.Provider value={{ sunData, setSunData, getNextEvent }}>
+    <SunContext.Provider
+      value={{
+        sunData,
+        setSunData,
+        locationName,
+        setLocationName,
+        getNextEvent,
+      }}
+    >
       {children}
     </SunContext.Provider>
   );

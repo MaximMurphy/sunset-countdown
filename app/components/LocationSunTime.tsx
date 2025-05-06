@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { useSun } from "../context/SunContext";
 
 export default function LocationSunTime() {
-  const { setSunData } = useSun();
+  const { setSunData, setLocationName } = useSun();
 
   useEffect(() => {
     if (navigator.geolocation) {
@@ -16,6 +16,7 @@ export default function LocationSunTime() {
           };
 
           try {
+            // Fetch sun data
             const response = await fetch(
               `/api/sun?lat=${newLocation.latitude}&lng=${newLocation.longitude}`
             );
@@ -25,8 +26,22 @@ export default function LocationSunTime() {
             } else {
               console.log("Failed to fetch sun data");
             }
+
+            // Fetch location name using reverse geocoding
+            const geoResponse = await fetch(
+              `https://nominatim.openstreetmap.org/reverse?format=json&lat=${newLocation.latitude}&lon=${newLocation.longitude}`
+            );
+            const geoData = await geoResponse.json();
+            if (geoData.address) {
+              const cityName =
+                geoData.address.city ||
+                geoData.address.town ||
+                geoData.address.village ||
+                geoData.address.county;
+              setLocationName(cityName);
+            }
           } catch (err) {
-            console.error("Error fetching sun data:", err);
+            console.error("Error fetching data:", err);
           }
         },
         (error) => {
@@ -36,7 +51,7 @@ export default function LocationSunTime() {
     } else {
       console.log("Geolocation is not supported by this browser.");
     }
-  }, [setSunData]);
+  }, [setSunData, setLocationName]);
 
   return null;
 }
