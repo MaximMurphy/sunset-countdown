@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono, Chivo_Mono, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
 import { SunProvider } from "./context/SunContext";
-import { DayCycleProvider } from "./context/DayCycleContext";
 import { SettingsProvider } from "./context/SettingsContext";
 
 const geistSans = Geist({
@@ -43,9 +42,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} ${chivoMono.variable} ${ibmPlexMono.variable} antialiased`}
       >
         <SettingsProvider>
-          <SunProvider>
-            <DayCycleProvider>{children}</DayCycleProvider>
-          </SunProvider>
+          <SunProvider>{children}</SunProvider>
         </SettingsProvider>
       </body>
     </html>
