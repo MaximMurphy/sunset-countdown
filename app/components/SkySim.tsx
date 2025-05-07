@@ -9,7 +9,7 @@ export default function Sky() {
     <div
       className="absolute w-full h-full transition-colors duration-1000"
       style={{
-        background: `hsl(200deg ${skySaturation}% ${skyLightness}%)`,
+        background: `hsl(222deg ${skySaturation}% ${skyLightness}%)`,
       }}
     />
   );

@@ -13,7 +13,6 @@ interface SimCycleContextType {
   sunPosition: number;
   skySaturation: number;
   skyLightness: number;
-  simTime: Date;
 }
 
 const SimCycleContext = createContext<SimCycleContextType | undefined>(
@@ -22,18 +21,15 @@ const SimCycleContext = createContext<SimCycleContextType | undefined>(
 
 export function SimCycleProvider({ children }: { children: ReactNode }) {
   const { sunData } = useSun();
+
   const [sunPosition, setSunPosition] = useState(0);
   const [skySaturation, setSkySaturation] = useState(0);
   const [skyLightness, setSkyLightness] = useState(0);
-  const [simTime, setSimTime] = useState(new Date());
 
   useEffect(() => {
     if (!sunData) return;
 
-    let position = 0;
-    let skySaturation = 0;
-    let skyLightness = 0;
-    let simTime = new Date();
+    let position, skySaturation, skyLightness;
 
     const updateSimCycle = () => {
       const now = new Date();
@@ -216,25 +212,24 @@ export function SimCycleProvider({ children }: { children: ReactNode }) {
       // Default night values
       else {
         position = 100;
-        skySaturation = 1;
-        skyLightness = 2;
+        skySaturation = 80;
+        skyLightness = 5;
       }
 
-      simTime = now;
       setSunPosition(position);
       setSkySaturation(skySaturation);
       setSkyLightness(skyLightness);
-      setSimTime(simTime);
     };
 
     updateSimCycle();
     const interval = setInterval(updateSimCycle, 1000);
+
     return () => clearInterval(interval);
   }, [sunData]);
 
   return (
     <SimCycleContext.Provider
-      value={{ sunPosition, skySaturation, skyLightness, simTime }}
+      value={{ sunPosition, skySaturation, skyLightness }}
     >
       {children}
     </SimCycleContext.Provider>
