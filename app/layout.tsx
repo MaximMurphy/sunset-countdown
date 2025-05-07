@@ -3,6 +3,7 @@ import { Geist, Geist_Mono, Chivo_Mono, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
 import { SunProvider } from "./context/SunContext";
 import { SettingsProvider } from "./context/SettingsContext";
+import { LocationProvider } from "./context/LocationContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -42,7 +43,9 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} ${chivoMono.variable} ${ibmPlexMono.variable} antialiased`}
       >
         <SettingsProvider>
-          <SunProvider>{children}</SunProvider>
+          <LocationProvider>
+            <SunProvider>{children}</SunProvider>
+          </LocationProvider>
         </SettingsProvider>
       </body>
     </html>

@@ -13,15 +13,14 @@ export async function GET(request: Request) {
   }
 
   try {
-    const response = await fetch(
-      `https://api.sunrisesunset.io/json?lat=${lat}&lng=${lng}`
-    );
-    const data = await response.json();
-    return NextResponse.json(data);
+    return NextResponse.json({
+      latitude: parseFloat(lat),
+      longitude: parseFloat(lng),
+    });
   } catch (error) {
-    console.error("Error fetching sunset data:", error);
+    console.error("Error processing location data:", error);
     return NextResponse.json(
-      { error: "Failed to fetch sunset data" },
+      { error: "Failed to process location data" },
       { status: 500 }
     );
   }

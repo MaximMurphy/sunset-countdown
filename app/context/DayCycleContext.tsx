@@ -26,19 +26,11 @@ export function DayCycleProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     if (!sunData) return;
 
-    const parseTimeString = (timeStr: string) => {
-      const [time, period] = timeStr.split(" ");
-      const [hours, minutes, seconds] = time.split(":").map(Number);
-      const date = new Date();
-      date.setHours(period === "PM" ? hours + 12 : hours, minutes, seconds, 0);
-      return date;
-    };
-
     const updateDayCycle = () => {
       const now = new Date();
-      const solarNoon = parseTimeString(sunData.solar_noon);
-      const sunrise = parseTimeString(sunData.sunrise);
-      const sunset = parseTimeString(sunData.sunset);
+      const solarNoon = new Date(sunData.solarNoon);
+      const sunrise = new Date(sunData.sunrise);
+      const sunset = new Date(sunData.sunset);
 
       const transitionPeriod = 7200000; // 2 hours
       const noonTransitionPeriod = 3600000; // 1 hour
