@@ -7,11 +7,11 @@ import {
   useEffect,
   ReactNode,
 } from "react";
-import { useSun } from "./SunContext";
 
 interface SimCycleContextType {
   sunPosition: number;
   skyColorIndex: number;
+  simTime: Date;
 }
 
 const SimCycleContext = createContext<SimCycleContextType | undefined>(
@@ -19,88 +19,88 @@ const SimCycleContext = createContext<SimCycleContextType | undefined>(
 );
 
 export function SimCycleProvider({ children }: { children: ReactNode }) {
-  const { sunData } = useSun();
   const [sunPosition, setSunPosition] = useState(0);
   const [skyColorIndex, setSkyColorIndex] = useState(0);
+  const [simTime, setSimTime] = useState(new Date());
 
   useEffect(() => {
-    if (!sunData) return;
+    // Set initial time to 6 AM
+    const initialTime = new Date();
+    initialTime.setHours(6, 0, 0, 0);
+    setSimTime(initialTime);
 
-    const parseTimeString = (timeStr: string) => {
-      const [time, period] = timeStr.split(" ");
-      const [hours, minutes, seconds] = time.split(":").map(Number);
-      const date = new Date();
-      date.setHours(period === "PM" ? hours + 12 : hours, minutes, seconds, 0);
-      return date;
+    const updateSimCycle = () => {
+      setSimTime((prevTime) => {
+        const newTime = new Date(prevTime);
+        // Add 1 hour (3600000 ms) worth of time every second
+        newTime.setTime(newTime.getTime() + 3600000);
+
+        // If we've passed midnight, reset to 6 AM
+        if (newTime.getHours() === 0) {
+          newTime.setHours(6, 0, 0, 0);
+        }
+
+        const hours = newTime.getHours();
+        const minutes = newTime.getMinutes();
+        const totalMinutes = hours * 60 + minutes;
+
+        // Calculate sun position and sky color based on time
+        let position;
+        let colorIndex;
+
+        // Night (10 PM - 4 AM)
+        if (hours >= 22 || hours < 4) {
+          position = 100;
+          colorIndex = 0;
+        }
+        // Sunrise transition (4 AM - 6 AM)
+        else if (hours >= 4 && hours < 6) {
+          const progress = (totalMinutes - 240) / 120; // Progress through sunrise
+          position = 100 - 70 * progress;
+          colorIndex = Math.floor(progress * 4);
+        }
+        // Morning (6 AM - 10 AM)
+        else if (hours >= 6 && hours < 10) {
+          const progress = (totalMinutes - 360) / 240;
+          position = 30 - 28 * progress;
+          colorIndex = 6;
+        }
+        // Midday (10 AM - 2 PM)
+        else if (hours >= 10 && hours < 14) {
+          position = 2;
+          colorIndex = 8;
+        }
+        // Afternoon (2 PM - 6 PM)
+        else if (hours >= 14 && hours < 18) {
+          const progress = (totalMinutes - 840) / 240;
+          position = 2 + 28 * progress;
+          colorIndex = 5;
+        }
+        // Sunset transition (6 PM - 8 PM)
+        else if (hours >= 18 && hours < 20) {
+          const progress = (totalMinutes - 1080) / 120;
+          position = 30 + 70 * progress;
+          colorIndex = 5 - Math.floor(progress * 4);
+        }
+        // Evening (8 PM - 10 PM)
+        else {
+          const progress = (totalMinutes - 1200) / 120;
+          position = 100;
+          colorIndex = Math.floor(progress * 2);
+        }
+
+        setSunPosition(position);
+        setSkyColorIndex(colorIndex);
+        return newTime;
+      });
     };
 
-    const updateDayCycle = () => {
-      const now = new Date();
-      const solarNoon = parseTimeString(sunData.solar_noon);
-      const sunrise = parseTimeString(sunData.sunrise);
-      const sunset = parseTimeString(sunData.sunset);
-
-      const transitionPeriod = 7200000; // 2 hours
-      const noonTransitionPeriod = 3600000; // 1 hour
-
-      const isRising = now < new Date(sunrise.getTime() + transitionPeriod);
-      const isSetting = now > new Date(sunset.getTime() - transitionPeriod);
-      const isBeforeNoon =
-        now < new Date(solarNoon.getTime() - noonTransitionPeriod);
-      const isAfterNoon =
-        now > new Date(solarNoon.getTime() + noonTransitionPeriod);
-      const isAtNoon = !isBeforeNoon && !isAfterNoon;
-
-      let position;
-      let colorIndex;
-
-      if (now < sunrise || now > sunset) {
-        position = 100;
-        colorIndex = 0; // Night
-      } else if (isRising) {
-        const riseProgress =
-          (now.getTime() - sunrise.getTime()) / transitionPeriod;
-        position = 100 - 70 * riseProgress;
-        colorIndex = Math.floor(riseProgress * 4); // Transition from night to morning
-      } else if (isSetting) {
-        const setProgress =
-          (now.getTime() - (sunset.getTime() - transitionPeriod)) /
-          transitionPeriod;
-        position = 30 + 70 * setProgress;
-        colorIndex = 5 - Math.floor(setProgress * 4); // Transition from day to night
-      } else if (isAtNoon) {
-        position = 2;
-        colorIndex = 8; // Midday
-      } else if (isBeforeNoon) {
-        const noonProgress =
-          (now.getTime() - (sunrise.getTime() + transitionPeriod)) /
-          (solarNoon.getTime() -
-            noonTransitionPeriod -
-            (sunrise.getTime() + transitionPeriod));
-        position = 30 - 28 * noonProgress;
-        colorIndex = 6; // Day
-      } else {
-        const noonProgress =
-          (now.getTime() - (solarNoon.getTime() + noonTransitionPeriod)) /
-          (sunset.getTime() -
-            transitionPeriod -
-            (solarNoon.getTime() + noonTransitionPeriod));
-        position = 2 + 28 * noonProgress;
-        colorIndex = 5; // Day
-      }
-
-      setSunPosition(position);
-      setSkyColorIndex(colorIndex);
-    };
-
-    updateDayCycle();
-    const interval = setInterval(updateDayCycle, 1000);
-
+    const interval = setInterval(updateSimCycle, 1000);
     return () => clearInterval(interval);
-  }, [sunData]);
+  }, []);
 
   return (
-    <SimCycleContext.Provider value={{ sunPosition, skyColorIndex }}>
+    <SimCycleContext.Provider value={{ sunPosition, skyColorIndex, simTime }}>
       {children}
     </SimCycleContext.Provider>
   );
