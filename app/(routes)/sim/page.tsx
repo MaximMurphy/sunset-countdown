@@ -1,4 +1,3 @@
-import LocationSunTime from "../../components/LocationSunTime";
 import SunSim from "../../components/SunSim";
 import SkySim from "../../components/SkySim";
 import GrainySVG from "../../components/GrainySVG";
@@ -12,7 +11,6 @@ export default function Home() {
       <FontProvider>
         <div className="relative h-svh md:h-screen flex flex-col items-center justify-center">
           <GrainySVG />
-          <LocationSunTime />
           <SkySim />
           <Gradients />
           <SunSim />
