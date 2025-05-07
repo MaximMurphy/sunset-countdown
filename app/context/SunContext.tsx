@@ -1,12 +1,6 @@
 "use client";
 
-import {
-  createContext,
-  useContext,
-  ReactNode,
-  useState,
-  useEffect,
-} from "react";
+import { createContext, useContext, ReactNode, useState } from "react";
 import SunCalc from "suncalc";
 import { useLocation } from "./LocationContext";
 
@@ -29,14 +23,13 @@ interface SunData {
 
 interface SunContextType {
   sunData: SunData | null;
-  locationName: string | null;
   getNextEvent: () => { type: "sunrise" | "sunset"; time: Date } | null;
 }
 
 const SunContext = createContext<SunContextType | undefined>(undefined);
 
 export function SunProvider({ children }: { children: ReactNode }) {
-  const { latitude, longitude, locationName } = useLocation();
+  const { latitude, longitude } = useLocation();
   const [sunData, setSunData] = useState<SunData | null>(null);
 
   const updateSunData = () => {
@@ -46,16 +39,7 @@ export function SunProvider({ children }: { children: ReactNode }) {
     }
   };
 
-  // Update sun data when location changes
-  useEffect(() => {
-    updateSunData();
-  }, [latitude, longitude]);
-
-  // Update sun data every minute
-  useEffect(() => {
-    const interval = setInterval(updateSunData, 60000);
-    return () => clearInterval(interval);
-  }, [latitude, longitude]);
+  updateSunData();
 
   const getNextEvent = () => {
     if (!sunData) return null;
@@ -85,7 +69,6 @@ export function SunProvider({ children }: { children: ReactNode }) {
     <SunContext.Provider
       value={{
         sunData,
-        locationName,
         getNextEvent,
       }}
     >
