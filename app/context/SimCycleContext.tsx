@@ -1,0 +1,115 @@
+"use client";
+
+import {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  ReactNode,
+} from "react";
+import { useSun } from "./SunContext";
+
+interface SimCycleContextType {
+  sunPosition: number;
+  skyColorIndex: number;
+}
+
+const SimCycleContext = createContext<SimCycleContextType | undefined>(
+  undefined
+);
+
+export function SimCycleProvider({ children }: { children: ReactNode }) {
+  const { sunData } = useSun();
+  const [sunPosition, setSunPosition] = useState(0);
+  const [skyColorIndex, setSkyColorIndex] = useState(0);
+
+  useEffect(() => {
+    if (!sunData) return;
+
+    const parseTimeString = (timeStr: string) => {
+      const [time, period] = timeStr.split(" ");
+      const [hours, minutes, seconds] = time.split(":").map(Number);
+      const date = new Date();
+      date.setHours(period === "PM" ? hours + 12 : hours, minutes, seconds, 0);
+      return date;
+    };
+
+    const updateDayCycle = () => {
+      const now = new Date();
+      const solarNoon = parseTimeString(sunData.solar_noon);
+      const sunrise = parseTimeString(sunData.sunrise);
+      const sunset = parseTimeString(sunData.sunset);
+
+      const transitionPeriod = 7200000; // 2 hours
+      const noonTransitionPeriod = 3600000; // 1 hour
+
+      const isRising = now < new Date(sunrise.getTime() + transitionPeriod);
+      const isSetting = now > new Date(sunset.getTime() - transitionPeriod);
+      const isBeforeNoon =
+        now < new Date(solarNoon.getTime() - noonTransitionPeriod);
+      const isAfterNoon =
+        now > new Date(solarNoon.getTime() + noonTransitionPeriod);
+      const isAtNoon = !isBeforeNoon && !isAfterNoon;
+
+      let position;
+      let colorIndex;
+
+      if (now < sunrise || now > sunset) {
+        position = 100;
+        colorIndex = 0; // Night
+      } else if (isRising) {
+        const riseProgress =
+          (now.getTime() - sunrise.getTime()) / transitionPeriod;
+        position = 100 - 70 * riseProgress;
+        colorIndex = Math.floor(riseProgress * 4); // Transition from night to morning
+      } else if (isSetting) {
+        const setProgress =
+          (now.getTime() - (sunset.getTime() - transitionPeriod)) /
+          transitionPeriod;
+        position = 30 + 70 * setProgress;
+        colorIndex = 5 - Math.floor(setProgress * 4); // Transition from day to night
+      } else if (isAtNoon) {
+        position = 2;
+        colorIndex = 8; // Midday
+      } else if (isBeforeNoon) {
+        const noonProgress =
+          (now.getTime() - (sunrise.getTime() + transitionPeriod)) /
+          (solarNoon.getTime() -
+            noonTransitionPeriod -
+            (sunrise.getTime() + transitionPeriod));
+        position = 30 - 28 * noonProgress;
+        colorIndex = 6; // Day
+      } else {
+        const noonProgress =
+          (now.getTime() - (solarNoon.getTime() + noonTransitionPeriod)) /
+          (sunset.getTime() -
+            transitionPeriod -
+            (solarNoon.getTime() + noonTransitionPeriod));
+        position = 2 + 28 * noonProgress;
+        colorIndex = 5; // Day
+      }
+
+      setSunPosition(position);
+      setSkyColorIndex(colorIndex);
+    };
+
+    updateDayCycle();
+    const interval = setInterval(updateDayCycle, 1000);
+
+    return () => clearInterval(interval);
+  }, [sunData]);
+
+  return (
+    <SimCycleContext.Provider value={{ sunPosition, skyColorIndex }}>
+      {children}
+    </SimCycleContext.Provider>
+  );
+}
+
+export function useSimCycle() {
+  const context = useContext(SimCycleContext);
+  if (context === undefined) {
+    throw new Error("useSimCycle must be used within a SimCycleProvider");
+  }
+  return context;
+}
