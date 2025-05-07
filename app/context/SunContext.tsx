@@ -35,18 +35,22 @@ interface SunContextType {
 const SunContext = createContext<SunContextType | undefined>(undefined);
 
 export function SunProvider({ children }: { children: ReactNode }) {
-  const { latitude, longitude } = useLocation();
   const [sunData, setSunData] = useState<SunData | null>(null);
-
-  const updateSunData = () => {
-    if (latitude && longitude) {
-      const times = SunCalc.getTimes(new Date(), latitude, longitude);
-      setSunData(times);
-    }
-  };
+  const { latitude, longitude } = useLocation();
 
   useEffect(() => {
+    const updateSunData = () => {
+      if (latitude && longitude) {
+        const now = new Date();
+        const times = SunCalc.getTimes(now, latitude, longitude);
+        setSunData(times);
+      }
+    };
+
     updateSunData();
+    // Update sun data every minute
+    const interval = setInterval(updateSunData, 60000);
+    return () => clearInterval(interval);
   }, [latitude, longitude]);
 
   const getNextEvent = () => {
@@ -56,19 +60,25 @@ export function SunProvider({ children }: { children: ReactNode }) {
     const sunriseTime = sunData.sunrise;
     const sunsetTime = sunData.sunset;
 
-    // If both times are in the past, get tomorrow's times
+    // If both times are in the past, get tomorrow's sunrise
     if (sunriseTime < now && sunsetTime < now) {
       if (latitude && longitude) {
         const tomorrow = new Date(now);
         tomorrow.setDate(tomorrow.getDate() + 1);
         const tomorrowTimes = SunCalc.getTimes(tomorrow, latitude, longitude);
-        return tomorrowTimes.sunrise < tomorrowTimes.sunset
-          ? { type: "sunrise" as const, time: tomorrowTimes.sunrise }
-          : { type: "sunset" as const, time: tomorrowTimes.sunset };
+        return { type: "sunrise" as const, time: tomorrowTimes.sunrise };
       }
     }
 
-    return sunriseTime < sunsetTime
+    // If both times are in the future, return the earlier one
+    if (sunriseTime > now && sunsetTime > now) {
+      return sunriseTime < sunsetTime
+        ? { type: "sunrise" as const, time: sunriseTime }
+        : { type: "sunset" as const, time: sunsetTime };
+    }
+
+    // If we get here, one time is in the past and one is in the future
+    return sunriseTime > now
       ? { type: "sunrise" as const, time: sunriseTime }
       : { type: "sunset" as const, time: sunsetTime };
   };
