@@ -50,6 +50,30 @@ export function SimCycleProvider({ children }: { children: ReactNode }) {
     const updateSimCycle = () => {
       const now = new Date();
 
+      // Sunrise to 30min after Sunrise
+
+      // 30min after Sunrise to 1hr after Sunrise
+
+      // 1hr after Sunrise to mid point between Sunrise and Solar Noon
+
+      // Mid point between Sunrise and Solar Noon to Solar Noon
+
+      // Solar Noon to 2hr after Solar Noon
+
+      // 2hr after Solar Noon to midpoint between Solar Noon and Sunset
+
+      // Mid point between Solar Noon and Sunset to 1hr before Sunset
+
+      // 1hr before Sunset to 30min before Sunset
+
+      // 30min before Sunset to Sunset
+
+      // Sunset to 30min after Sunset
+
+      // 30min after Sunset to 1hr after Sunset
+
+      // 1hr after Sunset to 2hr after sunset
+
       setSunPosition(position);
       setSkySaturation(skySaturation);
       setSkyLightness(skyLightness);
