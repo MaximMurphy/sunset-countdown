@@ -7,6 +7,7 @@ import {
   useEffect,
   ReactNode,
 } from "react";
+import { useSun } from "./SunContext";
 
 interface SimCycleContextType {
   sunPosition: number;
@@ -20,86 +21,42 @@ const SimCycleContext = createContext<SimCycleContextType | undefined>(
 );
 
 export function SimCycleProvider({ children }: { children: ReactNode }) {
+  const { sunData } = useSun();
   const [sunPosition, setSunPosition] = useState(0);
   const [skySaturation, setSkySaturation] = useState(0);
   const [skyLightness, setSkyLightness] = useState(0);
   const [simTime, setSimTime] = useState(new Date());
 
+  const parseTimeString = (timeStr: string) => {
+    const [time, period] = timeStr.split(" ");
+    const [hours, minutes, seconds] = time.split(":").map(Number);
+    const date = new Date();
+    date.setHours(period === "PM" ? hours + 12 : hours, minutes, seconds, 0);
+    return date;
+  };
+
   useEffect(() => {
-    // Set initial time to 6 AM
-    const initialTime = new Date();
-    initialTime.setHours(6, 0, 0, 0);
-    setSimTime(initialTime);
+    if (!sunData) return;
+
+    const solarNoon = parseTimeString(sunData.solar_noon);
+    const sunrise = parseTimeString(sunData.sunrise);
+    const sunset = parseTimeString(sunData.sunset);
+
+    let position = 0;
+    let skySaturation = 0;
+    let skyLightness = 0;
+    let simTime = new Date();
 
     const updateSimCycle = () => {
-      setSimTime((prevTime) => {
-        const newTime = new Date(prevTime);
-        // Add 1 hour (3600000 ms) worth of time every second
-        newTime.setTime(newTime.getTime() + 3600000);
+      const now = new Date();
 
-        // If we've passed midnight, reset to 6 AM
-        if (newTime.getHours() === 0) {
-          newTime.setHours(6, 0, 0, 0);
-        }
-
-        const hours = newTime.getHours();
-        const minutes = newTime.getMinutes();
-        const totalMinutes = hours * 60 + minutes;
-
-        // Calculate sun position and sky color based on time
-        let position;
-        let colorIndex;
-
-        // Night (10 PM - 4 AM)
-        if (hours >= 22 || hours < 4) {
-          position = 100;
-          colorIndex = 0;
-        }
-        // Sunrise transition (4 AM - 6 AM)
-        else if (hours >= 4 && hours < 6) {
-          const progress = (totalMinutes - 240) / 120; // Progress through sunrise
-          position = 100 - 70 * progress;
-          colorIndex = Math.floor(progress * 4);
-        }
-        // Morning (6 AM - 10 AM)
-        else if (hours >= 6 && hours < 10) {
-          const progress = (totalMinutes - 360) / 240;
-          position = 30 - 28 * progress;
-          colorIndex = 6;
-        }
-        // Midday (10 AM - 2 PM)
-        else if (hours >= 10 && hours < 14) {
-          position = 2;
-          colorIndex = 8;
-        }
-        // Afternoon (2 PM - 6 PM)
-        else if (hours >= 14 && hours < 18) {
-          const progress = (totalMinutes - 840) / 240;
-          position = 2 + 28 * progress;
-          colorIndex = 5;
-        }
-        // Sunset transition (6 PM - 8 PM)
-        else if (hours >= 18 && hours < 20) {
-          const progress = (totalMinutes - 1080) / 120;
-          position = 30 + 70 * progress;
-          colorIndex = 5 - Math.floor(progress * 4);
-        }
-        // Evening (8 PM - 10 PM)
-        else {
-          const progress = (totalMinutes - 1200) / 120;
-          position = 100;
-          colorIndex = Math.floor(progress * 2);
-        }
-
-        setSunPosition(position);
-        setSkySaturation(colorIndex);
-        setSkyLightness(colorIndex);
-        return newTime;
-      });
+      setSunPosition(position);
+      setSkySaturation(skySaturation);
+      setSkyLightness(skyLightness);
+      setSimTime(simTime);
     };
 
-    const interval = setInterval(updateSimCycle, 1000);
-    return () => clearInterval(interval);
+    updateSimCycle();
   }, []);
 
   return (

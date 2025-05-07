@@ -10,7 +10,7 @@ export default function Sun() {
       <div
         className="w-60 md:w-80 h-60 md:h-80 bg-amber-300 rounded-full transition-transform duration-1000 ease-in-out"
         style={{
-          transform: `translateY(${15}vh)`,
+          transform: `translateY(${sunPosition}vh)`,
         }}
       />
       <div
