@@ -1,6 +1,12 @@
 "use client";
 
-import { createContext, useContext, ReactNode, useState } from "react";
+import {
+  createContext,
+  useContext,
+  ReactNode,
+  useState,
+  useEffect,
+} from "react";
 import SunCalc from "suncalc";
 import { useLocation } from "./LocationContext";
 
@@ -39,7 +45,9 @@ export function SunProvider({ children }: { children: ReactNode }) {
     }
   };
 
-  updateSunData();
+  useEffect(() => {
+    updateSunData();
+  }, [latitude, longitude]);
 
   const getNextEvent = () => {
     if (!sunData) return null;

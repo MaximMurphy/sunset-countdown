@@ -1,6 +1,5 @@
 import Sky from "./components/Sky";
 import Countdown from "./components/Countdown";
-import LocationSunTime from "./components/LocationSunTime";
 import TimeDisplay from "./components/TimeDisplay";
 import Sun from "./components/Sun";
 import Settings from "./components/Settings";
@@ -15,7 +14,6 @@ export default function Home() {
       <FontProvider>
         <div className="relative h-svh md:h-screen flex flex-col items-center justify-center">
           <GrainySVG />
-          <LocationSunTime />
           <Sky />
           <Gradients />
           <Sun />

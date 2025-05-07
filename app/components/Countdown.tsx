@@ -22,19 +22,7 @@ export default function Countdown() {
         return;
       }
 
-      // Parse the sunset time string (e.g., "8:28:38 PM")
-      const [time, period] = nextEvent.time.split(" ");
-      const [hours, minutes, seconds] = time.split(":").map(Number);
-
-      // Create a new date for today with the sun event time
-      const sunEventTime = new Date(now);
-      sunEventTime.setHours(
-        period === "PM" ? hours + 12 : hours,
-        minutes,
-        seconds,
-        0
-      );
-
+      const sunEventTime = nextEvent.time;
       const diff = sunEventTime.getTime() - now.getTime();
 
       if (diff <= 0) {
@@ -45,24 +33,7 @@ export default function Countdown() {
           return;
         }
 
-        const [nextTime, nextPeriod] = nextEvent.time.split(" ");
-        const [nextHours, nextMinutes, nextSeconds] = nextTime
-          .split(":")
-          .map(Number);
-
-        const nextEventTime = new Date(now);
-        nextEventTime.setHours(
-          nextPeriod === "PM" ? nextHours + 12 : nextHours,
-          nextMinutes,
-          nextSeconds,
-          0
-        );
-
-        // If the next event is tomorrow, add a day
-        if (nextEventTime < now) {
-          nextEventTime.setDate(nextEventTime.getDate() + 1);
-        }
-
+        const nextEventTime = nextEvent.time;
         const nextDiff = nextEventTime.getTime() - now.getTime();
 
         const hoursDiff = Math.floor(nextDiff / (1000 * 60 * 60));

@@ -11,16 +11,11 @@ export default function TimeDisplay() {
 
   const nextEvent = getNextEvent();
 
-  let timePretty = nextEvent?.time.toLocaleTimeString("en-US", {
-    hour: "2-digit",
-    minute: "2-digit",
-    second: "2-digit",
-    hour12: true,
+  const timePretty = nextEvent?.time.toLocaleTimeString("en-US", {
+    hour: "numeric",
+    minute: "numeric",
+    hour12: timeFormat !== "24h",
   });
-
-  if (timeFormat === "24h") {
-    timePretty = timePretty?.replace("PM", "").replace("AM", "");
-  }
 
   if (!sunData || !locationName) {
     return (
