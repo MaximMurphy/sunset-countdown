@@ -167,7 +167,7 @@ export function SimCycleProvider({ children }: { children: ReactNode }) {
                 2) /
             (sunData.goldenHour.getTime() -
               (sunData.solarNoon.getTime() + sunData.goldenHour.getTime()) / 2);
-          position = 2 + progress * (15 - 2);
+          position = 2 + progress * (30 - 2);
           skySaturation = 100;
           skyLightness = 40 - progress * (40 - 35);
         }
@@ -180,7 +180,7 @@ export function SimCycleProvider({ children }: { children: ReactNode }) {
           const progress =
             (simulatedDate.getTime() - sunData.goldenHour.getTime()) /
             (sunData.sunsetStart.getTime() - sunData.goldenHour.getTime());
-          position = 15 + progress * (55 - 15);
+          position = 30 + progress * (55 - 30);
           skySaturation = 100;
           skyLightness = 35 - progress * (35 - 20);
         }

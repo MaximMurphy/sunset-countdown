@@ -137,7 +137,7 @@ export function DayCycleProvider({ children }: { children: ReactNode }) {
           ),
           sunData.goldenHour
         );
-        position = 2 + progress * (15 - 2); // From 2 to 15
+        position = 2 + progress * (30 - 2); // From 2 to 30
         skySaturation = 100; // From 100 to 100 (no change)
         skyLightness = 40 - progress * (40 - 35); // From 40 to 35
       }
@@ -149,7 +149,7 @@ export function DayCycleProvider({ children }: { children: ReactNode }) {
           sunData.goldenHour,
           sunData.sunsetStart
         );
-        position = 15 + progress * (55 - 15); // From 15 to 55
+        position = 30 + progress * (55 - 30); // From 30 to 55
         skySaturation = 100; // From 100 to 100 (no change)
         skyLightness = 35 - progress * (35 - 20); // From 35 to 20
       }
