@@ -18,7 +18,7 @@ export default function Gradients() {
       <div
         className="w-full h-2/3 bg-gradient-to-b"
         style={{
-          background: `linear-gradient(to bottom, transparent 75%, ${TOP_COLOR})`,
+          background: `linear-gradient(to bottom, transparent 50%, ${TOP_COLOR})`,
         }}
       />
       <div
