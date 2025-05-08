@@ -83,7 +83,7 @@ const FontSelector = () => {
           }`}
           style={{ fontFamily: "IBM Plex Mono" }}
         >
-          IBM Plex
+          IBM
         </button>
       </div>
     </div>
