@@ -5,6 +5,8 @@ import FontProvider from "../../components/FontProvider";
 import Gradients from "../../components/Gradients";
 import { SimCycleProvider } from "../../context/SimCycleContext";
 import StarsSim from "../../components/sim/StarsSim";
+import MoonSim from "../../components/sim/MoonSim";
+
 export default function Home() {
   return (
     <SimCycleProvider>
@@ -13,6 +15,7 @@ export default function Home() {
           <GrainySVG />
           <SkySim />
           <StarsSim />
+          <MoonSim />
           <Gradients />
           <SunSim />
         </div>

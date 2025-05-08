@@ -3,7 +3,7 @@
 import { useSimCycle } from "../../context/SimCycleContext";
 import { useEffect, useState } from "react";
 
-export default function Sky() {
+export default function Stars() {
   const { starOpacity } = useSimCycle();
   const [stars, setStars] = useState<{ x: number; y: number; size: number }[]>(
     []
