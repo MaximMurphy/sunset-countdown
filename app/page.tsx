@@ -6,6 +6,8 @@ import Settings from "./components/Settings";
 import GrainySVG from "./components/GrainySVG";
 import FontProvider from "./components/FontProvider";
 import Gradients from "./components/Gradients";
+import Stars from "./components/Stars";
+import Moon from "./components/Moon";
 import { DayCycleProvider } from "./context/DayCycleContext";
 
 export default function Home() {
@@ -17,6 +19,8 @@ export default function Home() {
           <Sky />
           <Gradients />
           <Sun />
+          <Stars />
+          <Moon />
           <Countdown />
           <div className="z-20 h-full w-full flex justify-between items-end px-6 py-8 md:px-12 md:py-12">
             <TimeDisplay />
