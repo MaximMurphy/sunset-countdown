@@ -16,8 +16,8 @@ export default function Moon() {
         }}
       >
         <div className="w-60 md:w-80 h-60 md:h-80 bg-gray-300 rounded-full" />
-        <div className="absolute top-2 w-60 md:w-80 h-60 md:h-80 bg-gray-400 rounded-full opacity-70" />
-        <div className="absolute top-4 w-60 md:w-80 h-60 md:h-80 bg-gray-500 rounded-full opacity-50" />
+        <div className="absolute top-2 md:top-4 w-60 md:w-80 h-60 md:h-80 bg-gray-400 rounded-full opacity-70" />
+        <div className="absolute top-4 md:top-8 w-60 md:w-80 h-60 md:h-80 bg-gray-500 rounded-full opacity-50" />
       </div>
     </div>
   );
