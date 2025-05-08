@@ -53,7 +53,7 @@ export function SunProvider({ children }: { children: ReactNode }) {
     return () => clearInterval(interval);
   }, [latitude, longitude]);
 
-  console.log(sunData);
+  //console.log(sunData);
 
   const getNextEvent = () => {
     if (!sunData) return null;
