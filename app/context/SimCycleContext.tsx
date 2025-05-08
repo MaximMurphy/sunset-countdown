@@ -18,6 +18,7 @@ interface SimCycleContextType {
   moonXPosition: number;
   moonYPosition: number;
   moonOpacity: number;
+  gradientOpacity: number;
 }
 
 const SimCycleContext = createContext<SimCycleContextType | undefined>(
@@ -34,6 +35,7 @@ export function SimCycleProvider({ children }: { children: ReactNode }) {
   const [moonXPosition, setMoonXPosition] = useState(0);
   const [moonYPosition, setMoonYPosition] = useState(0);
   const [moonOpacity, setMoonOpacity] = useState(0);
+  const [gradientOpacity, setGradientOpacity] = useState(0);
 
   // Use useRef to track current phase
   const phaseIndexRef = useRef(0);
@@ -55,6 +57,7 @@ export function SimCycleProvider({ children }: { children: ReactNode }) {
           moonXPosition: progress * 100,
           moonYPosition: 100,
           moonOpacity: 0,
+          gradientOpacity: 100 - progress * (100 - 55),
         }),
       },
       // sunriseEnd to goldenHourEnd
@@ -68,6 +71,7 @@ export function SimCycleProvider({ children }: { children: ReactNode }) {
           moonXPosition: 100,
           moonYPosition: 100,
           moonOpacity: 0,
+          gradientOpacity: 55 - progress * 55,
         }),
       },
       // goldenHourEnd to midpoint1
@@ -81,6 +85,7 @@ export function SimCycleProvider({ children }: { children: ReactNode }) {
           moonXPosition: 100,
           moonYPosition: 100,
           moonOpacity: 0,
+          gradientOpacity: 0,
         }),
       },
       // midpoint1 to solarNoon
@@ -94,6 +99,7 @@ export function SimCycleProvider({ children }: { children: ReactNode }) {
           moonXPosition: 100,
           moonYPosition: 100,
           moonOpacity: 0,
+          gradientOpacity: 0,
         }),
       },
       // solarNoon to midpoint2
@@ -107,6 +113,7 @@ export function SimCycleProvider({ children }: { children: ReactNode }) {
           moonXPosition: 100,
           moonYPosition: 100,
           moonOpacity: 0,
+          gradientOpacity: 0,
         }),
       },
       // midpoint2 to goldenHour
@@ -120,6 +127,7 @@ export function SimCycleProvider({ children }: { children: ReactNode }) {
           moonXPosition: 100,
           moonYPosition: 100,
           moonOpacity: 0,
+          gradientOpacity: progress * 25,
         }),
       },
       // goldenHour to sunsetStart
@@ -133,6 +141,7 @@ export function SimCycleProvider({ children }: { children: ReactNode }) {
           moonXPosition: 100,
           moonYPosition: 100,
           moonOpacity: 0,
+          gradientOpacity: 25 + progress * (100 - 25),
         }),
       },
       // sunsetStart to sunset
@@ -146,6 +155,7 @@ export function SimCycleProvider({ children }: { children: ReactNode }) {
           moonXPosition: 100,
           moonYPosition: 100,
           moonOpacity: 0,
+          gradientOpacity: 100 - progress * (100 - 75),
         }),
       },
       // sunset to dusk
@@ -159,6 +169,7 @@ export function SimCycleProvider({ children }: { children: ReactNode }) {
           moonXPosition: 100,
           moonYPosition: 100,
           moonOpacity: progress * 50,
+          gradientOpacity: 75 - progress * 75,
         }),
       },
       // dusk to nauticalDusk
@@ -172,6 +183,7 @@ export function SimCycleProvider({ children }: { children: ReactNode }) {
           moonXPosition: 100 - progress * (100 - 75),
           moonYPosition: 100 - progress * (100 - 50),
           moonOpacity: 50 + progress * (100 - 50),
+          gradientOpacity: 0,
         }),
       },
       // nauticalDusk to night
@@ -185,6 +197,7 @@ export function SimCycleProvider({ children }: { children: ReactNode }) {
           moonXPosition: 75 - progress * (75 - 50),
           moonYPosition: 50 - progress * (50 - 25),
           moonOpacity: 100,
+          gradientOpacity: 0,
         }),
       },
       // night to nauticalDawn
@@ -198,6 +211,7 @@ export function SimCycleProvider({ children }: { children: ReactNode }) {
           moonXPosition: 50 - progress * (50 - 25),
           moonYPosition: 25 + progress * (50 - 25),
           moonOpacity: 100,
+          gradientOpacity: 0,
         }),
       },
       // nauticalDawn to dawn
@@ -211,6 +225,7 @@ export function SimCycleProvider({ children }: { children: ReactNode }) {
           moonXPosition: 25 - progress * 25,
           moonYPosition: 50 + progress * (100 - 50),
           moonOpacity: 100 - progress * (100 - 50),
+          gradientOpacity: 0,
         }),
       },
       // dawn to sunrise
@@ -224,6 +239,7 @@ export function SimCycleProvider({ children }: { children: ReactNode }) {
           moonXPosition: 0,
           moonYPosition: 100,
           moonOpacity: 50 - progress * 50,
+          gradientOpacity: progress * 100,
         }),
       },
     ];
@@ -256,6 +272,7 @@ export function SimCycleProvider({ children }: { children: ReactNode }) {
       setMoonXPosition(values.moonXPosition);
       setMoonYPosition(values.moonYPosition);
       setMoonOpacity(values.moonOpacity);
+      setGradientOpacity(values.gradientOpacity);
     };
 
     updateSimCycle();
@@ -274,6 +291,7 @@ export function SimCycleProvider({ children }: { children: ReactNode }) {
         moonXPosition,
         moonYPosition,
         moonOpacity,
+        gradientOpacity,
       }}
     >
       {children}

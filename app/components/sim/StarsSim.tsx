@@ -21,7 +21,7 @@ export default function Stars() {
 
   return (
     <div
-      className="absolute w-full h-full transition-colors duration-1000 overflow-hidden"
+      className="absolute w-full h-full transition-all duration-1000 overflow-hidden"
       style={{
         opacity: starOpacity / 100,
       }}
