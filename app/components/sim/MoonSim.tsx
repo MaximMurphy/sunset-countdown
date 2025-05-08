@@ -3,14 +3,18 @@
 import { useSimCycle } from "../../context/SimCycleContext";
 
 export default function Moon() {
-  const { moonXPosition, moonYPosition } = useSimCycle();
+  const { moonXPosition, moonYPosition, moonOpacity } = useSimCycle();
+
+  //console.log(moonXPosition, moonYPosition, moonOpacity);
 
   return (
     <div className="absolute h-full w-full overflow-hidden">
       <div
-        className="absolute transition-all duration-1000 ease-in-out"
+        className="absolute right-0 transition-all duration-1000 ease-in-out"
         style={{
-          transform: `translate(${moonXPosition}vw, ${moonYPosition}vh)`,
+          transform: `translateY(${moonYPosition}vh)`,
+          left: `${moonXPosition}vw`,
+          opacity: moonOpacity / 100,
         }}
       >
         <div className="w-60 md:w-80 h-60 md:h-80 bg-gray-300 rounded-full" />
