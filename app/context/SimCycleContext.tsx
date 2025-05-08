@@ -14,6 +14,7 @@ interface SimCycleContextType {
   sunPosition: number;
   skySaturation: number;
   skyLightness: number;
+  starOpacity: number;
 }
 
 const SimCycleContext = createContext<SimCycleContextType | undefined>(
@@ -26,6 +27,7 @@ export function SimCycleProvider({ children }: { children: ReactNode }) {
   const [sunPosition, setSunPosition] = useState(0);
   const [skySaturation, setSkySaturation] = useState(0);
   const [skyLightness, setSkyLightness] = useState(0);
+  const [starOpacity, setStarOpacity] = useState(0);
 
   // Use useRef to track simulation time without triggering re-renders
   const simulationTimeRef = useRef(0);
@@ -50,7 +52,7 @@ export function SimCycleProvider({ children }: { children: ReactNode }) {
         sunData.sunrise.getTime() + progress * dayDuration
       );
 
-      let position, skySaturation, skyLightness;
+      let position, skySaturation, skyLightness, starOpacity;
 
       // Handle the transition between cycles
       if (progress < 0.01) {
@@ -59,6 +61,7 @@ export function SimCycleProvider({ children }: { children: ReactNode }) {
         position = 100;
         skySaturation = 80 - progress * 10; // Gradually decrease from 80 to 70
         skyLightness = 5 + progress * 10; // Gradually increase from 5 to 15
+        starOpacity = 100;
       }
       // Handle the end of the cycle
       else if (progress > 0.99) {
@@ -67,6 +70,7 @@ export function SimCycleProvider({ children }: { children: ReactNode }) {
         position = 100;
         skySaturation = 80;
         skyLightness = 5;
+        starOpacity = 0;
       }
       // Normal day cycle calculations
       else {
@@ -81,6 +85,7 @@ export function SimCycleProvider({ children }: { children: ReactNode }) {
           position = 100 - progress * (100 - 55);
           skySaturation = 70 - progress * (70 - 65);
           skyLightness = 15 + progress * (25 - 15);
+          starOpacity = 0;
         }
 
         // sunriseEnd to goldenHourEnd (10-20%)
@@ -94,6 +99,7 @@ export function SimCycleProvider({ children }: { children: ReactNode }) {
           position = 55 - progress * (55 - 35);
           skySaturation = 65 - progress * (65 - 60);
           skyLightness = 25 + progress * (45 - 25);
+          starOpacity = 0;
         }
 
         // goldenHourEnd to midpoint1 (20-35%)
@@ -113,6 +119,7 @@ export function SimCycleProvider({ children }: { children: ReactNode }) {
           position = 35 - progress * (35 - 15);
           skySaturation = 60 + progress * (85 - 60);
           skyLightness = 45;
+          starOpacity = 0;
         }
 
         // midpoint1 to solarNoon (35-50%)
@@ -134,6 +141,7 @@ export function SimCycleProvider({ children }: { children: ReactNode }) {
           position = 15 - progress * (15 - 2);
           skySaturation = 85 + progress * (100 - 85);
           skyLightness = 45;
+          starOpacity = 0;
         }
 
         // solarNoon to midpoint2 (50-65%)
@@ -151,6 +159,7 @@ export function SimCycleProvider({ children }: { children: ReactNode }) {
           position = 2;
           skySaturation = 100;
           skyLightness = 45 - progress * (45 - 40);
+          starOpacity = 0;
         }
 
         // midpoint2 to goldenHour (65-80%)
@@ -170,6 +179,7 @@ export function SimCycleProvider({ children }: { children: ReactNode }) {
           position = 2 + progress * (30 - 2);
           skySaturation = 100;
           skyLightness = 40 - progress * (40 - 35);
+          starOpacity = 0;
         }
 
         // goldenHour to sunsetStart (80-90%)
@@ -183,6 +193,7 @@ export function SimCycleProvider({ children }: { children: ReactNode }) {
           position = 30 + progress * (55 - 30);
           skySaturation = 100;
           skyLightness = 35 - progress * (35 - 20);
+          starOpacity = 0;
         }
 
         // sunsetStart to sunset (90-100%)
@@ -196,6 +207,7 @@ export function SimCycleProvider({ children }: { children: ReactNode }) {
           position = 55 + progress * (100 - 55);
           skySaturation = 100 - progress * (100 - 90);
           skyLightness = 20 - progress * (20 - 15);
+          starOpacity = 0;
         }
 
         // sunset to dusk (100-110%)
@@ -209,6 +221,7 @@ export function SimCycleProvider({ children }: { children: ReactNode }) {
           position = 100;
           skySaturation = 90 - progress * (90 - 85);
           skyLightness = 15 - progress * (15 - 10);
+          starOpacity = 0;
         }
 
         // dusk to nauticalDusk (110-120%)
@@ -222,6 +235,7 @@ export function SimCycleProvider({ children }: { children: ReactNode }) {
           position = 100;
           skySaturation = 85 - progress * (85 - 80);
           skyLightness = 10 - progress * (10 - 5);
+          starOpacity = progress * 30; // From 0 to 30
         }
 
         // nauticalDusk to night (120-130%)
@@ -232,6 +246,7 @@ export function SimCycleProvider({ children }: { children: ReactNode }) {
           position = 100;
           skySaturation = 80;
           skyLightness = 5;
+          starOpacity = 30 + progress * (100 - 30);
         }
 
         // night to nauticalDawn (130-140%)
@@ -242,6 +257,7 @@ export function SimCycleProvider({ children }: { children: ReactNode }) {
           position = 100;
           skySaturation = 80;
           skyLightness = 5;
+          starOpacity = 100;
         }
 
         // nauticalDawn to dawn (140-150%)
@@ -255,6 +271,7 @@ export function SimCycleProvider({ children }: { children: ReactNode }) {
           position = 100;
           skySaturation = 80 - progress * (80 - 75);
           skyLightness = 5 + progress * (10 - 5);
+          starOpacity = 100 - progress * (100 - 30);
         }
 
         // dawn to sunrise (150-160%)
@@ -268,6 +285,7 @@ export function SimCycleProvider({ children }: { children: ReactNode }) {
           position = 100;
           skySaturation = 75 - progress * (75 - 70);
           skyLightness = 10 + progress * (15 - 10);
+          starOpacity = 30 - progress * 30; // From 30 to 0
         }
 
         // Default night values
@@ -275,12 +293,14 @@ export function SimCycleProvider({ children }: { children: ReactNode }) {
           position = 100;
           skySaturation = 80;
           skyLightness = 5;
+          starOpacity = 100;
         }
       }
 
       setSunPosition(position);
       setSkySaturation(skySaturation);
       setSkyLightness(skyLightness);
+      setStarOpacity(starOpacity);
     };
 
     updateSimCycle();
@@ -291,7 +311,7 @@ export function SimCycleProvider({ children }: { children: ReactNode }) {
 
   return (
     <SimCycleContext.Provider
-      value={{ sunPosition, skySaturation, skyLightness }}
+      value={{ sunPosition, skySaturation, skyLightness, starOpacity }}
     >
       {children}
     </SimCycleContext.Provider>

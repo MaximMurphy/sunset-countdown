@@ -1,5 +1,5 @@
-import SunSim from "../../components/SunSim";
-import SkySim from "../../components/SkySim";
+import SunSim from "../../components/sim/SunSim";
+import SkySim from "../../components/sim/SkySim";
 import GrainySVG from "../../components/GrainySVG";
 import FontProvider from "../../components/FontProvider";
 import Gradients from "../../components/Gradients";

@@ -1,6 +1,6 @@
 "use client";
 
-import { useSimCycle } from "../context/SimCycleContext";
+import { useSimCycle } from "../../context/SimCycleContext";
 
 export default function Sun() {
   const { sunPosition } = useSimCycle();

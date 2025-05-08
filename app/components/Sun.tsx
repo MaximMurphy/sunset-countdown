@@ -10,7 +10,7 @@ export default function Sun() {
   return (
     <div className="absolute inset-0 flex justify-center overflow-hidden">
       <div
-        className={`bg-amber-300 rounded-full transition-all duration-500 ease-in-out ${
+        className={`bg-amber-300 rounded-full transition-all duration-1000 ease-in-out ${
           sunSize === "sm"
             ? "w-20 md:w-32 h-20 md:h-32"
             : sunSize === "md"
@@ -22,7 +22,7 @@ export default function Sun() {
         }}
       />
       <div
-        className={`absolute bg-amber-400 rounded-full transition-all duration-500 ease-in-out opacity-70 ${
+        className={`absolute bg-amber-400 rounded-full transition-all duration-1000 ease-in-out opacity-70 ${
           sunSize === "sm"
             ? "w-20 md:w-32 h-20 md:h-32"
             : sunSize === "md"
@@ -36,7 +36,7 @@ export default function Sun() {
         }}
       />
       <div
-        className={`absolute bg-amber-500 rounded-full transition-all duration-500 ease-in-out opacity-50 ${
+        className={`absolute bg-amber-500 rounded-full transition-all duration-1000 ease-in-out opacity-50 ${
           sunSize === "sm"
             ? "w-20 md:w-32 h-20 md:h-32"
             : sunSize === "md"
