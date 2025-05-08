@@ -14,9 +14,9 @@ export default function Home() {
         <div className="relative h-svh md:h-screen flex flex-col items-center justify-center">
           <GrainySVG />
           <SkySim />
+          <Gradients />
           <StarsSim />
           <MoonSim />
-          <Gradients />
           <SunSim />
         </div>
       </FontProvider>

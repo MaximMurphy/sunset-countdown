@@ -2,17 +2,26 @@ export default function Gradients() {
   const color1 = getRandomColor();
   const color2 = getRandomColor();
 
-  console.log(color1, color2);
-
-  //  style={{
-  //           background: `linear-gradient(to bottom, ${color1}, ${color2})`,
-  //         }}
-
-  //  <div className="w-full h-2/3 bg-gradient-to-b from-transparent to-amber-600/70" />
-  // <div className="w-full h-1/3 bg-gradient-to-b from-amber-600/70 to-amber-700" />
-
   return (
-    <div className="absolute w-full h-full flex flex-col items-center justify-between"></div>
+    <div
+      className="absolute w-full h-full flex flex-col items-center justify-between"
+      style={{
+        opacity: 0.5,
+      }}
+    >
+      <div
+        className="w-full h-2/3 bg-gradient-to-b"
+        style={{
+          background: `linear-gradient(to bottom, transparent 75%, ${color1})`,
+        }}
+      />
+      <div
+        className="w-full h-1/3 bg-gradient-to-b"
+        style={{
+          background: `linear-gradient(to bottom, ${color1}, ${color2})`,
+        }}
+      />
+    </div>
   );
 }
 
