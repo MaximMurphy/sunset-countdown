@@ -11,7 +11,7 @@ export default function Moon() {
         className="absolute right-0 transition-all duration-1000 ease-in-out"
         style={{
           transform: `translateY(${moonYPosition}vh)`,
-          left: `${moonXPosition}vw`,
+          left: `calc(${moonXPosition}vw - 7.5rem)`,
           opacity: moonOpacity / 100,
         }}
       >
