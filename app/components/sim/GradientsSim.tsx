@@ -2,9 +2,8 @@
 
 import { useSimCycle } from "../../context/SimCycleContext";
 
-// Fixed sunset colors
-const TOP_COLOR = "#ff9a8b";
-const BOTTOM_COLOR = "#ff6a88";
+const TOP_COLOR = "#fd9a00";
+const BOTTOM_COLOR = "#ca3500";
 
 export default function Gradients() {
   const { gradientOpacity } = useSimCycle();

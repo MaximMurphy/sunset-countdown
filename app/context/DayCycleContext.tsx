@@ -17,6 +17,7 @@ interface DayCycleContextType {
   moonXPosition: number;
   moonYPosition: number;
   moonOpacity: number;
+  gradientOpacity: number;
 }
 
 const DayCycleContext = createContext<DayCycleContextType | undefined>(
@@ -32,6 +33,7 @@ export function DayCycleProvider({ children }: { children: ReactNode }) {
   const [moonXPosition, setMoonXPosition] = useState(0);
   const [moonYPosition, setMoonYPosition] = useState(0);
   const [moonOpacity, setMoonOpacity] = useState(0);
+  const [gradientOpacity, setGradientOpacity] = useState(0);
 
   useEffect(() => {
     if (!sunData) return;
@@ -54,7 +56,8 @@ export function DayCycleProvider({ children }: { children: ReactNode }) {
         starOpacity,
         moonXPosition,
         moonYPosition,
-        moonOpacity;
+        moonOpacity,
+        gradientOpacity;
 
       // Sunrise to sunriseEnd (0-10%)
       if (now >= sunData.sunrise && now < sunData.sunriseEnd) {
@@ -66,6 +69,7 @@ export function DayCycleProvider({ children }: { children: ReactNode }) {
         moonXPosition = progress * 100;
         moonYPosition = 100;
         moonOpacity = 0;
+        gradientOpacity = 100 - progress * (100 - 55);
       }
 
       // sunriseEnd to goldenHourEnd (10-20%)
@@ -82,6 +86,7 @@ export function DayCycleProvider({ children }: { children: ReactNode }) {
         moonXPosition = 100;
         moonYPosition = 100;
         moonOpacity = 0;
+        gradientOpacity = 55 - progress * 55;
       }
 
       // goldenHourEnd to midpoint1 (20-35%)
@@ -106,6 +111,7 @@ export function DayCycleProvider({ children }: { children: ReactNode }) {
         moonXPosition = 100;
         moonYPosition = 100;
         moonOpacity = 0;
+        gradientOpacity = 0;
       }
 
       // midpoint1 to solarNoon (35-50%)
@@ -130,6 +136,7 @@ export function DayCycleProvider({ children }: { children: ReactNode }) {
         moonXPosition = 100;
         moonYPosition = 100;
         moonOpacity = 0;
+        gradientOpacity = 0;
       }
 
       // solarNoon to midpoint2 (50-65%)
@@ -154,6 +161,7 @@ export function DayCycleProvider({ children }: { children: ReactNode }) {
         moonXPosition = 100;
         moonYPosition = 100;
         moonOpacity = 0;
+        gradientOpacity = 0;
       }
 
       // midpoint2 to goldenHour (65-80%)
@@ -178,6 +186,7 @@ export function DayCycleProvider({ children }: { children: ReactNode }) {
         moonXPosition = 100;
         moonYPosition = 100;
         moonOpacity = 0;
+        gradientOpacity = progress * 25;
       }
 
       // goldenHour to sunsetStart (80-90%)
@@ -194,6 +203,7 @@ export function DayCycleProvider({ children }: { children: ReactNode }) {
         moonXPosition = 100;
         moonYPosition = 100;
         moonOpacity = 0;
+        gradientOpacity = 25 + progress * (75 - 25);
       }
 
       // sunsetStart to sunset (90-100%)
@@ -206,6 +216,7 @@ export function DayCycleProvider({ children }: { children: ReactNode }) {
         moonXPosition = 100;
         moonYPosition = 100;
         moonOpacity = 0;
+        gradientOpacity = 75 + progress * (100 - 75);
       }
 
       // sunset to dusk (100-110%)
@@ -218,6 +229,7 @@ export function DayCycleProvider({ children }: { children: ReactNode }) {
         moonXPosition = 100;
         moonYPosition = 100;
         moonOpacity = progress * 50;
+        gradientOpacity = 100 - progress * 100;
       }
 
       // dusk to nauticalDusk (110-120%)
@@ -230,6 +242,7 @@ export function DayCycleProvider({ children }: { children: ReactNode }) {
         moonXPosition = 100 - progress * (100 - 75);
         moonYPosition = 100 - progress * (100 - 50);
         moonOpacity = 50 + progress * (100 - 50);
+        gradientOpacity = 0;
       }
 
       // nauticalDusk to night (120-130%)
@@ -242,6 +255,7 @@ export function DayCycleProvider({ children }: { children: ReactNode }) {
         moonXPosition = 75 - progress * (75 - 50);
         moonYPosition = 50 - progress * (50 - 25);
         moonOpacity = 100;
+        gradientOpacity = 0;
       }
 
       // night to nauticalDawn (130-140%)
@@ -254,6 +268,7 @@ export function DayCycleProvider({ children }: { children: ReactNode }) {
         moonXPosition = 50 - progress * (50 - 25);
         moonYPosition = 25 + progress * (50 - 25);
         moonOpacity = 100;
+        gradientOpacity = 0;
       }
 
       // nauticalDawn to dawn (140-150%)
@@ -266,6 +281,7 @@ export function DayCycleProvider({ children }: { children: ReactNode }) {
         moonXPosition = 25 - progress * 25;
         moonYPosition = 50 + progress * (100 - 50);
         moonOpacity = 100 - progress * (100 - 50);
+        gradientOpacity = 0;
       }
 
       // dawn to sunrise (150-160%)
@@ -278,6 +294,7 @@ export function DayCycleProvider({ children }: { children: ReactNode }) {
         moonXPosition = 0;
         moonYPosition = 100;
         moonOpacity = 50 - progress * 50;
+        gradientOpacity = progress * 100;
       }
 
       // Default night values
@@ -289,6 +306,7 @@ export function DayCycleProvider({ children }: { children: ReactNode }) {
         moonXPosition = 0;
         moonYPosition = 100;
         moonOpacity = 100;
+        gradientOpacity = 0;
       }
 
       setSunPosition(position);
@@ -298,6 +316,7 @@ export function DayCycleProvider({ children }: { children: ReactNode }) {
       setMoonXPosition(moonXPosition);
       setMoonYPosition(moonYPosition);
       setMoonOpacity(moonOpacity);
+      setGradientOpacity(gradientOpacity);
     };
 
     updateDayCycle();
@@ -316,6 +335,7 @@ export function DayCycleProvider({ children }: { children: ReactNode }) {
         moonXPosition,
         moonYPosition,
         moonOpacity,
+        gradientOpacity,
       }}
     >
       {children}
