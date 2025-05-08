@@ -17,13 +17,13 @@ export default function Settings() {
       </div>
 
       {isOpen && (
-        <div className="fixed inset-0 bg-opacity-50 flex items-center justify-center z-40">
-          <div className="bg-amber-50 text-[#000717] p-6 rounded-xl shadow-xl max-w-md w-full mx-4">
+        <div className="fixed inset-0 bg-opacity-50 flex items-center justify-center z-40 py-12 md:py-0">
+          <div className="bg-amber-50 text-[#000717] p-6 rounded-xl shadow-xl max-w-md w-full mx-4 max-h-[calc(100svh-200px)] md:max-h-svh overflow-y-auto">
             <div className="flex justify-between items-center mb-6">
               <h2 className="text-xl font-semibold font-mono">Settings</h2>
               <button
                 onClick={() => setIsOpen(false)}
-                className="hover:text-amber-500 hover:scale-110 hover:cursor-pointer transition-all duration-300"
+                className="text-2xl md:text-xl hover:text-amber-500 hover:scale-110 hover:cursor-pointer transition-all duration-300"
               >
                 ✕
               </button>

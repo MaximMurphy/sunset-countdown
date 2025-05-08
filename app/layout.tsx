@@ -40,7 +40,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${chivoMono.variable} ${ibmPlexMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${chivoMono.variable} ${ibmPlexMono.variable} antialiased h-[100dvh] overflow-hidden`}
       >
         <SettingsProvider>
           <LocationProvider>
