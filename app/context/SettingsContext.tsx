@@ -7,6 +7,7 @@ type TimeFormat = "12h" | "24h";
 type Countdown = "ON" | "OFF";
 type CountdownPosition = "left" | "middle" | "right";
 type CountdownSize = "sm" | "md" | "lg";
+type SunSize = "sm" | "md" | "lg";
 
 interface SettingsContextType {
   font: Font;
@@ -15,12 +16,14 @@ interface SettingsContextType {
   countdownPosition: CountdownPosition;
   countdownSize: CountdownSize;
   locationVisible: boolean;
+  sunSize: SunSize;
   setFont: (font: Font) => void;
   setTimeFormat: (format: TimeFormat) => void;
   setCountdown: (countdown: Countdown) => void;
   setCountdownPosition: (position: CountdownPosition) => void;
   setCountdownSize: (size: CountdownSize) => void;
   setLocationVisible: (visible: boolean) => void;
+  setSunSize: (size: SunSize) => void;
 }
 
 const SettingsContext = createContext<SettingsContextType | undefined>(
@@ -35,6 +38,7 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
     useState<CountdownPosition>("middle");
   const [countdownSize, setCountdownSize] = useState<CountdownSize>("lg");
   const [locationVisible, setLocationVisible] = useState<boolean>(false);
+  const [sunSize, setSunSize] = useState<SunSize>("md");
 
   return (
     <SettingsContext.Provider
@@ -45,12 +49,14 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
         countdownPosition,
         countdownSize,
         locationVisible,
+        sunSize,
         setFont,
         setTimeFormat,
         setCountdown,
         setCountdownPosition,
         setCountdownSize,
         setLocationVisible,
+        setSunSize,
       }}
     >
       {children}

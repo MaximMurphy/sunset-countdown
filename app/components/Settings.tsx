@@ -32,6 +32,7 @@ export default function Settings() {
               <div className="flex flex-col gap-8 mb-12">
                 <FontSelector />
                 <CountdownSelector />
+                <SunSizeSelector />
                 <TimeFormatSelector />
                 <LocationSelector />
               </div>
@@ -220,6 +221,48 @@ const CountdownToggle = ({
         </div>
       </div>
     </section>
+  );
+};
+
+const SunSizeSelector = () => {
+  const { sunSize, setSunSize } = useSettings();
+
+  return (
+    <div className="h-full flex flex-col gap-2">
+      <label className="text-sm font-semibold">Sun Size</label>
+      <div className="w-full h-full flex flex-row justify-between gap-4">
+        <button
+          onClick={() => setSunSize("sm")}
+          className={`h-full w-1/3 border p-2 rounded-md hover:cursor-pointer hover:border-amber-500 transition-all duration-300 ${
+            sunSize === "sm"
+              ? "border-amber-500 bg-amber-100/50"
+              : "border-amber-200"
+          }`}
+        >
+          Sm
+        </button>
+        <button
+          onClick={() => setSunSize("md")}
+          className={`h-full w-1/3 border p-2 rounded-md hover:cursor-pointer hover:border-amber-500 transition-all duration-300 ${
+            sunSize === "md"
+              ? "border-amber-500 bg-amber-100/50"
+              : "border-amber-200"
+          }`}
+        >
+          Md
+        </button>
+        <button
+          onClick={() => setSunSize("lg")}
+          className={`h-full w-1/3 border p-2 rounded-md hover:cursor-pointer hover:border-amber-500 transition-all duration-300 ${
+            sunSize === "lg"
+              ? "border-amber-500 bg-amber-100/50"
+              : "border-amber-200"
+          }`}
+        >
+          Lg
+        </button>
+      </div>
+    </div>
   );
 };
 
