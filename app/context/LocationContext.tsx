@@ -31,7 +31,6 @@ export function LocationProvider({ children }: { children: ReactNode }) {
       };
 
       const successCallback = async (position: GeolocationPosition) => {
-        console.log("Successfully got position:", position);
         const newLocation = {
           latitude: position.coords.latitude,
           longitude: position.coords.longitude,
@@ -60,15 +59,6 @@ export function LocationProvider({ children }: { children: ReactNode }) {
       };
 
       const errorCallback = (error: GeolocationPositionError) => {
-        console.log("Geolocation error code:", error.code);
-        console.log("Is secure context:", window.isSecureContext);
-        console.log("Current URL:", window.location.href);
-
-        if (!window.isSecureContext) {
-          setLocationName("Please use HTTPS or localhost");
-          return;
-        }
-
         switch (error.code) {
           case error.PERMISSION_DENIED:
             setLocationName("Location access denied");
@@ -84,7 +74,6 @@ export function LocationProvider({ children }: { children: ReactNode }) {
         }
       };
 
-      // Direct geolocation request
       navigator.geolocation.getCurrentPosition(
         successCallback,
         errorCallback,
