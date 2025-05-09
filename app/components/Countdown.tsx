@@ -69,7 +69,7 @@ export default function Countdown() {
 
   if (!sunData) {
     return (
-      <div className="text-[4rem] md:text-[10rem] lg:text-[14rem] font-medium text-amber-50">
+      <div className="text-[2rem] md:text-[4rem] lg:text-[6rem] font-medium text-amber-50">
         Loading...
       </div>
     );

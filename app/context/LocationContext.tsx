@@ -25,7 +25,13 @@ export function LocationProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(async (position) => {
+      const options = {
+        enableHighAccuracy: true,
+        timeout: 5000,
+        maximumAge: 0,
+      };
+
+      const successCallback = async (position: GeolocationPosition) => {
         const newLocation = {
           latitude: position.coords.latitude,
           longitude: position.coords.longitude,
@@ -35,7 +41,6 @@ export function LocationProvider({ children }: { children: ReactNode }) {
         setLongitude(newLocation.longitude);
 
         try {
-          // Fetch location name using reverse geocoding
           const geoResponse = await fetch(
             `https://nominatim.openstreetmap.org/reverse?format=json&lat=${newLocation.latitude}&lon=${newLocation.longitude}`
           );
@@ -52,7 +57,29 @@ export function LocationProvider({ children }: { children: ReactNode }) {
           console.error("Error fetching location name:", err);
           setLocationName("Unknown");
         }
-      });
+      };
+
+      const errorCallback = (error: GeolocationPositionError) => {
+        console.error("Error getting location:", error);
+        switch (error.code) {
+          case error.PERMISSION_DENIED:
+            console.log("User denied the request for Geolocation");
+            break;
+          case error.POSITION_UNAVAILABLE:
+            console.log("Location information is unavailable");
+            break;
+          case error.TIMEOUT:
+            console.log("The request to get user location timed out");
+            break;
+        }
+        setLocationName("Unknown");
+      };
+
+      navigator.geolocation.getCurrentPosition(
+        successCallback,
+        errorCallback,
+        options
+      );
     } else {
       console.log("Geolocation is not supported by this browser");
       setLocationName("Unknown");
