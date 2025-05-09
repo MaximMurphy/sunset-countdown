@@ -120,7 +120,7 @@ export function SimCycleProvider({ children }: { children: ReactNode }) {
       {
         name: "Midpoint 2 to Golden Hour",
         getValues: (progress: number) => ({
-          position: 2 + progress * (30 - 2),
+          position: 2 + progress * (55 - 2),
           skySaturation: 100,
           skyLightness: 40 - progress * (40 - 35),
           starOpacity: 0,
@@ -134,7 +134,7 @@ export function SimCycleProvider({ children }: { children: ReactNode }) {
       {
         name: "Golden Hour to Sunset Start",
         getValues: (progress: number) => ({
-          position: 30 + progress * (55 - 30),
+          position: 55 + progress * (100 - 55),
           skySaturation: 100,
           skyLightness: 35 - progress * (35 - 20),
           starOpacity: 0,
@@ -148,7 +148,7 @@ export function SimCycleProvider({ children }: { children: ReactNode }) {
       {
         name: "Sunset Start to Sunset",
         getValues: (progress: number) => ({
-          position: 55 + progress * (100 - 55),
+          position: 100,
           skySaturation: 100 - progress * (100 - 90),
           skyLightness: 20 - progress * (20 - 15),
           starOpacity: 0,
