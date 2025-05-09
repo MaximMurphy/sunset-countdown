@@ -134,28 +134,28 @@ export function SimCycleProvider({ children }: { children: ReactNode }) {
       {
         name: "Golden Hour to Sunset Start",
         getValues: (progress: number) => ({
-          position: 55 + progress * (100 - 55),
+          position: 55 + progress * (98 - 55),
           skySaturation: 100,
           skyLightness: 35 - progress * (35 - 20),
           starOpacity: 0,
           moonXPosition: 100,
           moonYPosition: 100,
           moonOpacity: 0,
-          gradientOpacity: 25 + progress * (75 - 25),
+          gradientOpacity: 25 + progress * (100 - 25),
         }),
       },
       // sunsetStart to sunset
       {
         name: "Sunset Start to Sunset",
         getValues: (progress: number) => ({
-          position: 100,
+          position: 98 + progress * (100 - 98),
           skySaturation: 100 - progress * (100 - 90),
           skyLightness: 20 - progress * (20 - 15),
           starOpacity: 0,
           moonXPosition: 100,
           moonYPosition: 100,
           moonOpacity: 0,
-          gradientOpacity: 75 + progress * (100 - 75),
+          gradientOpacity: 100 - progress * (100 - 75),
         }),
       },
       // sunset to dusk
@@ -169,7 +169,7 @@ export function SimCycleProvider({ children }: { children: ReactNode }) {
           moonXPosition: 100,
           moonYPosition: 100,
           moonOpacity: progress * 50,
-          gradientOpacity: 100 - progress * 100,
+          gradientOpacity: 75 - progress * 75,
         }),
       },
       // dusk to nauticalDusk
