@@ -27,11 +27,11 @@ export function LocationProvider({ children }: { children: ReactNode }) {
     if (navigator.geolocation) {
       const options = {
         enableHighAccuracy: true,
-        timeout: 5000,
-        maximumAge: 0,
+        timeout: 10000,
       };
 
       const successCallback = async (position: GeolocationPosition) => {
+        console.log("Successfully got position:", position);
         const newLocation = {
           latitude: position.coords.latitude,
           longitude: position.coords.longitude,
@@ -60,21 +60,31 @@ export function LocationProvider({ children }: { children: ReactNode }) {
       };
 
       const errorCallback = (error: GeolocationPositionError) => {
-        console.error("Error getting location:", error);
+        console.log("Geolocation error code:", error.code);
+        console.log("Is secure context:", window.isSecureContext);
+        console.log("Current URL:", window.location.href);
+
+        if (!window.isSecureContext) {
+          setLocationName("Please use HTTPS or localhost");
+          return;
+        }
+
         switch (error.code) {
           case error.PERMISSION_DENIED:
-            console.log("User denied the request for Geolocation");
+            setLocationName("Location access denied");
             break;
           case error.POSITION_UNAVAILABLE:
-            console.log("Location information is unavailable");
+            setLocationName("Location unavailable");
             break;
           case error.TIMEOUT:
-            console.log("The request to get user location timed out");
+            setLocationName("Location request timed out");
             break;
+          default:
+            setLocationName("Location error");
         }
-        setLocationName("Unknown");
       };
 
+      // Direct geolocation request
       navigator.geolocation.getCurrentPosition(
         successCallback,
         errorCallback,
