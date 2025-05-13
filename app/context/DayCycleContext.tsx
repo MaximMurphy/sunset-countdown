@@ -219,82 +219,60 @@ export function DayCycleProvider({ children }: { children: ReactNode }) {
         gradientOpacity = 100 - progress * (100 - 75);
       }
 
-      // sunset to dusk (100-110%)
-      else if (now >= sunData.sunset && now < sunData.dusk) {
-        const progress = getProgress(now, sunData.sunset, sunData.dusk);
+      // sunset to nauticalDusk
+      else if (now >= sunData.sunset && now < sunData.nauticalDusk) {
+        const progress = getProgress(now, sunData.sunset, sunData.nauticalDusk);
         position = 100; // From 100 to 100 (no change)
-        skySaturation = 90 - progress * (90 - 85); // From 90 to 85
-        skyLightness = 15 - progress * (15 - 10); // From 15 to 10
-        starOpacity = 0;
-        moonXPosition = 100;
-        moonYPosition = 100;
-        moonOpacity = progress * 50;
-        gradientOpacity = 75 - progress * 75;
+        skySaturation = 90 - progress * (90 - 80); // From 90 to 80
+        skyLightness = 15 - progress * (15 - 5); // From 15 to 5
+        starOpacity = progress * 50; // From 0 to 30
+        moonXPosition = 100 - progress * (100 - 75); // From 100 to 75
+        moonYPosition = 75 - progress * (75 - 50); // From 75 to 50
+        moonOpacity = progress * 100; // From 0 to 100
+        gradientOpacity = 75 - progress * 75; // From 75 to 0
       }
 
-      // dusk to nauticalDusk (110-120%)
-      else if (now >= sunData.dusk && now < sunData.nauticalDusk) {
-        const progress = getProgress(now, sunData.dusk, sunData.nauticalDusk);
-        position = 100; // From 100 to 100 (no change)
-        skySaturation = 85 - progress * (85 - 80); // From 85 to 80
-        skyLightness = 10 - progress * (10 - 5); // From 10 to 5
-        starOpacity = progress * 30;
-        moonXPosition = 100 - progress * (100 - 75);
-        moonYPosition = 100 - progress * (100 - 50);
-        moonOpacity = 50 + progress * (100 - 50);
-        gradientOpacity = 0;
+      // nauticalDusk to nadir
+      else if (now >= sunData.nauticalDusk && now < sunData.nadir) {
+        const progress = getProgress(now, sunData.nauticalDusk, sunData.nadir);
+        position = 100; // No Change
+        skySaturation = 80; // No Change
+        skyLightness = 5; // No Change
+        starOpacity = 50 + progress * (100 - 50); // From 50 to 100
+        moonXPosition = 75 - progress * (75 - 50); // From 75 to 50
+        moonYPosition = 50; // No Change
+        moonOpacity = 100; // No Change
+        gradientOpacity = 0; // No Change
       }
 
-      // nauticalDusk to night (120-130%)
-      else if (now >= sunData.nauticalDusk && now < sunData.night) {
-        const progress = getProgress(now, sunData.nauticalDusk, sunData.night);
-        position = 100; // From 100 to 100 (no change)
-        skySaturation = 80; // From 80 to 80 (no change)
-        skyLightness = 5; // From 5 to 5 (no change)
-        starOpacity = 30 + progress * (100 - 30);
-        moonXPosition = 75 - progress * (75 - 50);
-        moonYPosition = 50 - progress * (50 - 25);
-        moonOpacity = 100;
-        gradientOpacity = 0;
-      }
-
-      // night to nauticalDawn (130-140%)
-      else if (now >= sunData.night && now < sunData.nauticalDawn) {
-        const progress = getProgress(now, sunData.night, sunData.nauticalDawn);
-        position = 100; // From 100 to 100 (no change)
-        skySaturation = 80; // From 80 to 80 (no change)
-        skyLightness = 5; // From 5 to 5 (no change)
-        starOpacity = 100;
-        moonXPosition = 50 - progress * (50 - 25);
-        moonYPosition = 25 + progress * (50 - 25);
-        moonOpacity = 100;
-        gradientOpacity = 0;
-      }
-
-      // nauticalDawn to dawn (140-150%)
-      else if (now >= sunData.nauticalDawn && now < sunData.dawn) {
-        const progress = getProgress(now, sunData.nauticalDawn, sunData.dawn);
-        position = 100; // From 100 to 100 (no change)
+      // nadir to nauticalDawn
+      else if (now >= sunData.nadir && now < sunData.nauticalDawn) {
+        const progress = getProgress(now, sunData.nadir, sunData.nauticalDawn);
+        position = 100; // No Change
         skySaturation = 80 - progress * (80 - 75); // From 80 to 75
         skyLightness = 5 + progress * (10 - 5); // From 5 to 10
-        starOpacity = 100 - progress * (100 - 30);
-        moonXPosition = 25 - progress * 25;
-        moonYPosition = 50 + progress * (100 - 50);
-        moonOpacity = 100 - progress * (100 - 50);
-        gradientOpacity = 0;
+        starOpacity = 100 - progress * (100 - 30); // From 100 to 30
+        moonXPosition = 50 - progress * (50 - 25); // From 50 to 25
+        moonYPosition = 50 + progress * (75 - 50); // From 50 to 75
+        moonOpacity = 100 - progress * (100 - 50); // From 100 to 50
+        gradientOpacity = 0; // No Change
       }
 
-      // dawn to sunrise (150-160%)
-      else if (now >= sunData.dawn && now < sunData.sunrise) {
-        const progress = getProgress(now, sunData.dawn, sunData.sunrise);
-        position = 100; // From 100 to 100 (no change)
+      // nauticalDawn to sunrise (150-160%)
+      else if (now >= sunData.nauticalDawn && now < sunData.sunrise) {
+        const progress = getProgress(
+          now,
+          sunData.nauticalDawn,
+          sunData.sunrise
+        );
+        position = 100; // No Change
         skySaturation = 75 - progress * (75 - 70); // From 75 to 70
         skyLightness = 10 + progress * (15 - 10); // From 10 to 15
-        starOpacity = 30 - progress * 30;
-        moonXPosition = 0;
-        moonYPosition = 100;
-        moonOpacity = 50 - progress * 50;
-        gradientOpacity = progress * 100;
+        starOpacity = 30 - progress * 30; // From 30 to 0
+        moonXPosition = 50 - progress * 50; // From 50 to 0
+        moonYPosition = 75; // No Change
+        moonOpacity = 50 - progress * 50; // From 50 to 0
+        gradientOpacity = progress * 100; // From 0 to 100
       }
 
       // Default night values
@@ -303,8 +281,8 @@ export function DayCycleProvider({ children }: { children: ReactNode }) {
         skySaturation = 80;
         skyLightness = 5;
         starOpacity = 100;
-        moonXPosition = 0;
-        moonYPosition = 100;
+        moonXPosition = 50;
+        moonYPosition = 50;
         moonOpacity = 100;
         gradientOpacity = 0;
       }
