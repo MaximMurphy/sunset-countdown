@@ -67,7 +67,7 @@ export function DayCycleProvider({ children }: { children: ReactNode }) {
         skyLightness = 15 + progress * (25 - 15); // From 15 to 25
         starOpacity = 0;
         moonXPosition = progress * 100;
-        moonYPosition = 100;
+        moonYPosition = 75;
         moonOpacity = 0;
         gradientOpacity = 100 - progress * (100 - 55);
       }
@@ -84,7 +84,7 @@ export function DayCycleProvider({ children }: { children: ReactNode }) {
         skyLightness = 25 + progress * (45 - 25); // From 25 to 45
         starOpacity = 0;
         moonXPosition = 100;
-        moonYPosition = 100;
+        moonYPosition = 75;
         moonOpacity = 0;
         gradientOpacity = 55 - progress * 55;
       }
@@ -109,7 +109,7 @@ export function DayCycleProvider({ children }: { children: ReactNode }) {
         skyLightness = 45; // From 45 to 45 (no change)
         starOpacity = 0;
         moonXPosition = 100;
-        moonYPosition = 100;
+        moonYPosition = 75;
         moonOpacity = 0;
         gradientOpacity = 0;
       }
@@ -134,7 +134,7 @@ export function DayCycleProvider({ children }: { children: ReactNode }) {
         skyLightness = 45; // From 45 to 45 (no change)
         starOpacity = 0;
         moonXPosition = 100;
-        moonYPosition = 100;
+        moonYPosition = 75;
         moonOpacity = 0;
         gradientOpacity = 0;
       }
@@ -159,7 +159,7 @@ export function DayCycleProvider({ children }: { children: ReactNode }) {
         skyLightness = 45 - progress * (45 - 40); // From 45 to 40
         starOpacity = 0;
         moonXPosition = 100;
-        moonYPosition = 100;
+        moonYPosition = 75;
         moonOpacity = 0;
         gradientOpacity = 0;
       }
@@ -184,7 +184,7 @@ export function DayCycleProvider({ children }: { children: ReactNode }) {
         skyLightness = 40 - progress * (40 - 35); // From 40 to 35
         starOpacity = 0;
         moonXPosition = 100;
-        moonYPosition = 100;
+        moonYPosition = 75;
         moonOpacity = 0;
         gradientOpacity = progress * 25;
       }
@@ -201,7 +201,7 @@ export function DayCycleProvider({ children }: { children: ReactNode }) {
         skyLightness = 35 - progress * (35 - 20); // From 35 to 20
         starOpacity = 0;
         moonXPosition = 100;
-        moonYPosition = 100;
+        moonYPosition = 75;
         moonOpacity = 0;
         gradientOpacity = 25 + progress * (100 - 25);
       }
@@ -214,7 +214,7 @@ export function DayCycleProvider({ children }: { children: ReactNode }) {
         skyLightness = 20 - progress * (20 - 15); // From 20 to 15
         starOpacity = 0;
         moonXPosition = 100;
-        moonYPosition = 100;
+        moonYPosition = 75;
         moonOpacity = 0;
         gradientOpacity = 100 - progress * (100 - 75);
       }
@@ -227,7 +227,7 @@ export function DayCycleProvider({ children }: { children: ReactNode }) {
         skyLightness = 15 - progress * (15 - 5); // From 15 to 5
         starOpacity = progress * 50; // From 0 to 30
         moonXPosition = 100 - progress * (100 - 75); // From 100 to 75
-        moonYPosition = 75 - progress * (75 - 50); // From 75 to 50
+        moonYPosition = 75 - progress * (75 - 25); // From 75 to 25
         moonOpacity = progress * 100; // From 0 to 100
         gradientOpacity = 75 - progress * 75; // From 75 to 0
       }
@@ -240,7 +240,7 @@ export function DayCycleProvider({ children }: { children: ReactNode }) {
         skyLightness = 5; // No Change
         starOpacity = 50 + progress * (100 - 50); // From 50 to 100
         moonXPosition = 75 - progress * (75 - 50); // From 75 to 50
-        moonYPosition = 50; // No Change
+        moonYPosition = 25; // No Change
         moonOpacity = 100; // No Change
         gradientOpacity = 0; // No Change
       }
@@ -252,9 +252,9 @@ export function DayCycleProvider({ children }: { children: ReactNode }) {
         skySaturation = 80 - progress * (80 - 75); // From 80 to 75
         skyLightness = 5 + progress * (10 - 5); // From 5 to 10
         starOpacity = 100 - progress * (100 - 30); // From 100 to 30
-        moonXPosition = 50 - progress * (50 - 25); // From 50 to 25
-        moonYPosition = 50 + progress * (75 - 50); // From 50 to 75
-        moonOpacity = 100 - progress * (100 - 50); // From 100 to 50
+        moonXPosition = 50 - progress * 50; // From 50 to 0
+        moonYPosition = 25 + progress * (75 - 25); // From 25 to 75
+        moonOpacity = 100 - progress * 100; // From 100 to 0
         gradientOpacity = 0; // No Change
       }
 
@@ -269,9 +269,9 @@ export function DayCycleProvider({ children }: { children: ReactNode }) {
         skySaturation = 75 - progress * (75 - 70); // From 75 to 70
         skyLightness = 10 + progress * (15 - 10); // From 10 to 15
         starOpacity = 30 - progress * 30; // From 30 to 0
-        moonXPosition = 50 - progress * 50; // From 50 to 0
+        moonXPosition = 0; // No Change
         moonYPosition = 75; // No Change
-        moonOpacity = 50 - progress * 50; // From 50 to 0
+        moonOpacity = 0; // No Change
         gradientOpacity = progress * 100; // From 0 to 100
       }
 
@@ -282,7 +282,7 @@ export function DayCycleProvider({ children }: { children: ReactNode }) {
         skyLightness = 5;
         starOpacity = 100;
         moonXPosition = 50;
-        moonYPosition = 50;
+        moonYPosition = 25;
         moonOpacity = 100;
         gradientOpacity = 0;
       }
