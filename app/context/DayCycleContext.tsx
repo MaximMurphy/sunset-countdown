@@ -228,7 +228,7 @@ export function DayCycleProvider({ children }: { children: ReactNode }) {
         starOpacity = 0;
         moonXPosition = 100;
         moonYPosition = 100;
-        moonOpacity = 0;
+        moonOpacity = progress * 50;
         gradientOpacity = 75 - progress * 75;
       }
 
