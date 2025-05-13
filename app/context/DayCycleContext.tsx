@@ -233,8 +233,27 @@ export function DayCycleProvider({ children }: { children: ReactNode }) {
       }
 
       // nauticalDusk to nadir
-      else if (now >= sunData.nauticalDusk && now < sunData.nadir) {
-        const progress = getProgress(now, sunData.nauticalDusk, sunData.nadir);
+      else if (
+        (now >= sunData.nauticalDusk && now < sunData.nadir) || // Normal case
+        (now >= sunData.nauticalDusk && sunData.nadir < sunData.nauticalDusk) || // After nauticalDusk and nadir is before nauticalDusk (crossing midnight)
+        (now < sunData.nadir && sunData.nadir < sunData.nauticalDusk) // Before nadir and nadir is before nauticalDusk (crossing midnight)
+      ) {
+        const progress =
+          sunData.nadir < sunData.nauticalDusk
+            ? now < sunData.nadir
+              ? getProgress(
+                  now,
+                  new Date(
+                    sunData.nauticalDusk.getTime() - 24 * 60 * 60 * 1000
+                  ),
+                  sunData.nadir
+                )
+              : getProgress(
+                  now,
+                  sunData.nauticalDusk,
+                  new Date(sunData.nadir.getTime() + 24 * 60 * 60 * 1000)
+                )
+            : getProgress(now, sunData.nauticalDusk, sunData.nadir);
         position = 100; // No Change
         skySaturation = 80; // No Change
         skyLightness = 5; // No Change
