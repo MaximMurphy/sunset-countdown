@@ -4,13 +4,15 @@ import { useDayCycle } from "../context/DayCycleContext";
 import { useSettings } from "../context/SettingsContext";
 
 export default function Sun() {
-  const { sunPosition } = useDayCycle();
+  const { sunPosition, sunOpacity } = useDayCycle();
   const { sunSize } = useSettings();
 
   return (
     <div className="absolute inset-0 flex justify-center overflow-hidden">
       <div
-        className={`bg-amber-300 rounded-full transition-all duration-1000 ease-in-out ${
+        className={`bg-amber-300 rounded-full transition-all duration-1000 ease-in-out opacity-${
+          sunOpacity / 100
+        } ${
           sunSize === "sm"
             ? "w-20 md:w-32 h-20 md:h-32"
             : sunSize === "md"

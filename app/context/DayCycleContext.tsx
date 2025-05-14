@@ -11,6 +11,7 @@ import { useSun } from "./SunContext";
 
 interface DayCycleContextType {
   sunPosition: number;
+  sunOpacity: number;
   skySaturation: number;
   skyLightness: number;
   starOpacity: number;
@@ -27,6 +28,7 @@ const DayCycleContext = createContext<DayCycleContextType | undefined>(
 export function DayCycleProvider({ children }: { children: ReactNode }) {
   const { sunData } = useSun();
   const [sunPosition, setSunPosition] = useState(0);
+  const [sunOpacity, setSunOpacity] = useState(0);
   const [skySaturation, setSkySaturation] = useState(0);
   const [skyLightness, setSkyLightness] = useState(0);
   const [starOpacity, setStarOpacity] = useState(0);
@@ -51,6 +53,7 @@ export function DayCycleProvider({ children }: { children: ReactNode }) {
       };
 
       let position,
+        sunOpacity,
         skySaturation,
         skyLightness,
         starOpacity,
@@ -63,6 +66,7 @@ export function DayCycleProvider({ children }: { children: ReactNode }) {
       if (now >= sunData.sunrise && now < sunData.sunriseEnd) {
         const progress = getProgress(now, sunData.sunrise, sunData.sunriseEnd);
         position = 100 - progress * (100 - 55); // From 100 to 55
+        sunOpacity = 100;
         skySaturation = 70 - progress * (70 - 65); // From 70 to 65
         skyLightness = 15 + progress * (25 - 15); // From 15 to 25
         starOpacity = 0;
@@ -80,6 +84,7 @@ export function DayCycleProvider({ children }: { children: ReactNode }) {
           sunData.goldenHourEnd
         );
         position = 55 - progress * (55 - 35); // From 55 to 35
+        sunOpacity = 100;
         skySaturation = 65 - progress * (65 - 60); // From 65 to 60
         skyLightness = 25 + progress * (45 - 25); // From 25 to 45
         starOpacity = 0;
@@ -105,6 +110,7 @@ export function DayCycleProvider({ children }: { children: ReactNode }) {
           )
         );
         position = 35 - progress * (35 - 15); // From 35 to 15
+        sunOpacity = 100;
         skySaturation = 60 + progress * (85 - 60); // From 60 to 85
         skyLightness = 45; // From 45 to 45 (no change)
         starOpacity = 0;
@@ -130,6 +136,7 @@ export function DayCycleProvider({ children }: { children: ReactNode }) {
           sunData.solarNoon
         );
         position = 15 - progress * (15 - 2); // From 15 to 2
+        sunOpacity = 100;
         skySaturation = 85 + progress * (100 - 85); // From 85 to 100
         skyLightness = 45; // From 45 to 45 (no change)
         starOpacity = 0;
@@ -155,6 +162,7 @@ export function DayCycleProvider({ children }: { children: ReactNode }) {
           )
         );
         position = 2; // From 2 to 2 (no change)
+        sunOpacity = 100;
         skySaturation = 100; // From 100 to 100 (no change)
         skyLightness = 45 - progress * (45 - 40); // From 45 to 40
         starOpacity = 0;
@@ -180,6 +188,7 @@ export function DayCycleProvider({ children }: { children: ReactNode }) {
           sunData.goldenHour
         );
         position = 2 + progress * (55 - 2); // From 2 to 30
+        sunOpacity = 100;
         skySaturation = 100; // From 100 to 100 (no change)
         skyLightness = 40 - progress * (40 - 35); // From 40 to 35
         starOpacity = 0;
@@ -197,6 +206,7 @@ export function DayCycleProvider({ children }: { children: ReactNode }) {
           sunData.sunsetStart
         );
         position = 55 + progress * (98 - 55); // From 30 to 55
+        sunOpacity = 100;
         skySaturation = 100; // From 100 to 100 (no change)
         skyLightness = 35 - progress * (35 - 20); // From 35 to 20
         starOpacity = 0;
@@ -210,6 +220,7 @@ export function DayCycleProvider({ children }: { children: ReactNode }) {
       else if (now >= sunData.sunsetStart && now < sunData.sunset) {
         const progress = getProgress(now, sunData.sunsetStart, sunData.sunset);
         position = 98 + progress * (100 - 98); // From 30 to 55
+        sunOpacity = 100;
         skySaturation = 100 - progress * (100 - 90); // From 100 to 90
         skyLightness = 20 - progress * (20 - 15); // From 20 to 15
         starOpacity = 0;
@@ -223,6 +234,7 @@ export function DayCycleProvider({ children }: { children: ReactNode }) {
       else if (now >= sunData.sunset && now < sunData.nauticalDusk) {
         const progress = getProgress(now, sunData.sunset, sunData.nauticalDusk);
         position = 100; // From 100 to 100 (no change)
+        sunOpacity = 0;
         skySaturation = 90 - progress * (90 - 80); // From 90 to 80
         skyLightness = 15 - progress * (15 - 5); // From 15 to 5
         starOpacity = progress * 50; // From 0 to 30
@@ -255,6 +267,7 @@ export function DayCycleProvider({ children }: { children: ReactNode }) {
                 )
             : getProgress(now, sunData.nauticalDusk, sunData.nadir);
         position = 100; // No Change
+        sunOpacity = 0;
         skySaturation = 80; // No Change
         skyLightness = 5; // No Change
         starOpacity = 50 + progress * (100 - 50); // From 50 to 100
@@ -268,6 +281,7 @@ export function DayCycleProvider({ children }: { children: ReactNode }) {
       else if (now >= sunData.nadir && now < sunData.nauticalDawn) {
         const progress = getProgress(now, sunData.nadir, sunData.nauticalDawn);
         position = 100; // No Change
+        sunOpacity = 0;
         skySaturation = 80 - progress * (80 - 75); // From 80 to 75
         skyLightness = 5 + progress * (10 - 5); // From 5 to 10
         starOpacity = 100 - progress * (100 - 30); // From 100 to 30
@@ -285,6 +299,7 @@ export function DayCycleProvider({ children }: { children: ReactNode }) {
           sunData.sunrise
         );
         position = 100; // No Change
+        sunOpacity = 0;
         skySaturation = 75 - progress * (75 - 70); // From 75 to 70
         skyLightness = 10 + progress * (15 - 10); // From 10 to 15
         starOpacity = 30 - progress * 30; // From 30 to 0
@@ -297,6 +312,7 @@ export function DayCycleProvider({ children }: { children: ReactNode }) {
       // Default night values
       else {
         position = 100;
+        sunOpacity = 0;
         skySaturation = 80;
         skyLightness = 5;
         starOpacity = 100;
@@ -307,6 +323,7 @@ export function DayCycleProvider({ children }: { children: ReactNode }) {
       }
 
       setSunPosition(position);
+      setSunOpacity(sunOpacity);
       setSkySaturation(skySaturation);
       setSkyLightness(skyLightness);
       setStarOpacity(starOpacity);
@@ -326,6 +343,7 @@ export function DayCycleProvider({ children }: { children: ReactNode }) {
     <DayCycleContext.Provider
       value={{
         sunPosition,
+        sunOpacity,
         skySaturation,
         skyLightness,
         starOpacity,
