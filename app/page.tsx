@@ -14,7 +14,7 @@ export default function Home() {
   return (
     <DayCycleProvider>
       <FontProvider>
-        <div className="relative h-svh md:h-screen flex flex-col items-center justify-center">
+        <div className="relative h-dvh md:h-screen flex flex-col items-center justify-center">
           <GrainySVG />
           <Sky />
           <Gradients />
