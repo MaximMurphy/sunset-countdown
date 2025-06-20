@@ -346,7 +346,7 @@ const Footer = () => (
   <p className="text-sm text-center">
     🌅 Made by{" "}
     <Link
-      href="https://www.luminance.one/"
+      href="https://www.maximmurphy.com/"
       target="_blank"
       rel="noopener noreferrer"
       className="hover:text-amber-500 transition-all duration-300"
