@@ -135,7 +135,7 @@ export function SimCycleProvider({ children }: { children: ReactNode }) {
           skyLightness: 20 - progress * (20 - 15),
           starOpacity: 0,
           moonOpacity: 0,
-          gradientOpacity: 100 - progress * (100 - 75),
+          gradientOpacity: 100 - progress * (100 - 50),
         }),
       },
       // sunset to nauticalDusk
@@ -146,8 +146,8 @@ export function SimCycleProvider({ children }: { children: ReactNode }) {
           skySaturation: 90 - progress * (90 - 80),
           skyLightness: 15 - progress * (15 - 5),
           starOpacity: progress * 50,
-          moonOpacity: progress * 100,
-          gradientOpacity: 75 - progress * 75,
+          moonOpacity: progress * 50,
+          gradientOpacity: 50 - progress * 50,
         }),
       },
       // nauticalDusk to nadir
@@ -158,7 +158,7 @@ export function SimCycleProvider({ children }: { children: ReactNode }) {
           skySaturation: 80,
           skyLightness: 5,
           starOpacity: 50 + progress * (100 - 50),
-          moonOpacity: 100,
+          moonOpacity: 50 + progress * (100 - 50),
           gradientOpacity: 0,
         }),
       },

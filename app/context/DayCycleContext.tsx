@@ -205,7 +205,7 @@ export function DayCycleProvider({ children }: { children: ReactNode }) {
         skyLightness = 20 - progress * (20 - 15); // From 20 to 15
         starOpacity = 0;
         moonOpacity = 0;
-        gradientOpacity = 100 - progress * (100 - 75);
+        gradientOpacity = 100 - progress * (100 - 50);
       }
 
       // sunset to nauticalDusk
@@ -216,8 +216,8 @@ export function DayCycleProvider({ children }: { children: ReactNode }) {
         skySaturation = 90 - progress * (90 - 80); // From 90 to 80
         skyLightness = 15 - progress * (15 - 5); // From 15 to 5
         starOpacity = progress * 50; // From 0 to 30
-        moonOpacity = progress * 100; // From 0 to 100
-        gradientOpacity = 75 - progress * 75; // From 75 to 0
+        moonOpacity = progress * 50;
+        gradientOpacity = 50 - progress * 50;
       }
 
       // nauticalDusk to nadir
