@@ -27,7 +27,7 @@ export default function TimeDisplay() {
 
   return (
     <div className="font-medium text-sm md:text-[1rem] text-amber-100">
-      {nextEvent?.type === "sunset" ? "Sunset" : "Sunrise at"} {timePretty}
+      {nextEvent?.type === "sunset" ? "Sunset at" : "Sunrise at"} {timePretty}
       {locationName && locationVisible && " • " + locationName}
     </div>
   );
