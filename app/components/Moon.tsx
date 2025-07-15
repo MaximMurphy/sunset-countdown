@@ -3,15 +3,13 @@
 import { useDayCycle } from "../context/DayCycleContext";
 
 export default function Moon() {
-  const { moonXPosition, moonYPosition, moonOpacity } = useDayCycle();
+  const { moonOpacity } = useDayCycle();
 
   return (
     <div className="absolute h-full w-full overflow-hidden">
       <div
-        className="absolute right-0 transition-all duration-1000 ease-in-out"
+        className="absolute left-1/2 -translate-x-1/2 top-1/3 -translate-y-1/3 transition-all duration-1000 ease-in-out"
         style={{
-          transform: `translateY(${moonYPosition}vh)`,
-          left: `calc(${moonXPosition}vw - 7.5rem)`,
           opacity: moonOpacity / 100,
         }}
       >

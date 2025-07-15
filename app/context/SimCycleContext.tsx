@@ -15,8 +15,6 @@ interface SimCycleContextType {
   skySaturation: number;
   skyLightness: number;
   starOpacity: number;
-  moonXPosition: number;
-  moonYPosition: number;
   moonOpacity: number;
   gradientOpacity: number;
 }
@@ -32,8 +30,6 @@ export function SimCycleProvider({ children }: { children: ReactNode }) {
   const [skySaturation, setSkySaturation] = useState(0);
   const [skyLightness, setSkyLightness] = useState(0);
   const [starOpacity, setStarOpacity] = useState(0);
-  const [moonXPosition, setMoonXPosition] = useState(0);
-  const [moonYPosition, setMoonYPosition] = useState(0);
   const [moonOpacity, setMoonOpacity] = useState(0);
   const [gradientOpacity, setGradientOpacity] = useState(0);
 
@@ -54,8 +50,6 @@ export function SimCycleProvider({ children }: { children: ReactNode }) {
           skySaturation: 70 - progress * (70 - 65),
           skyLightness: 15 + progress * (25 - 15),
           starOpacity: 0,
-          moonXPosition: progress * 100,
-          moonYPosition: 75,
           moonOpacity: 0,
           gradientOpacity: 100 - progress * (100 - 55),
         }),
@@ -68,8 +62,6 @@ export function SimCycleProvider({ children }: { children: ReactNode }) {
           skySaturation: 65 - progress * (65 - 60),
           skyLightness: 25 + progress * (45 - 25),
           starOpacity: 0,
-          moonXPosition: 100,
-          moonYPosition: 75,
           moonOpacity: 0,
           gradientOpacity: 55 - progress * 55,
         }),
@@ -82,8 +74,6 @@ export function SimCycleProvider({ children }: { children: ReactNode }) {
           skySaturation: 60 + progress * (85 - 60),
           skyLightness: 45,
           starOpacity: 0,
-          moonXPosition: 100,
-          moonYPosition: 75,
           moonOpacity: 0,
           gradientOpacity: 0,
         }),
@@ -96,8 +86,6 @@ export function SimCycleProvider({ children }: { children: ReactNode }) {
           skySaturation: 85 + progress * (100 - 85),
           skyLightness: 45,
           starOpacity: 0,
-          moonXPosition: 100,
-          moonYPosition: 75,
           moonOpacity: 0,
           gradientOpacity: 0,
         }),
@@ -110,8 +98,6 @@ export function SimCycleProvider({ children }: { children: ReactNode }) {
           skySaturation: 100,
           skyLightness: 45 - progress * (45 - 40),
           starOpacity: 0,
-          moonXPosition: 100,
-          moonYPosition: 75,
           moonOpacity: 0,
           gradientOpacity: 0,
         }),
@@ -124,8 +110,6 @@ export function SimCycleProvider({ children }: { children: ReactNode }) {
           skySaturation: 100,
           skyLightness: 40 - progress * (40 - 35),
           starOpacity: 0,
-          moonXPosition: 100,
-          moonYPosition: 75,
           moonOpacity: 0,
           gradientOpacity: progress * 25,
         }),
@@ -138,8 +122,6 @@ export function SimCycleProvider({ children }: { children: ReactNode }) {
           skySaturation: 100,
           skyLightness: 35 - progress * (35 - 20),
           starOpacity: 0,
-          moonXPosition: 100,
-          moonYPosition: 75,
           moonOpacity: 0,
           gradientOpacity: 25 + progress * (100 - 25),
         }),
@@ -152,8 +134,6 @@ export function SimCycleProvider({ children }: { children: ReactNode }) {
           skySaturation: 100 - progress * (100 - 90),
           skyLightness: 20 - progress * (20 - 15),
           starOpacity: 0,
-          moonXPosition: 100,
-          moonYPosition: 75,
           moonOpacity: 0,
           gradientOpacity: 100 - progress * (100 - 75),
         }),
@@ -166,8 +146,6 @@ export function SimCycleProvider({ children }: { children: ReactNode }) {
           skySaturation: 90 - progress * (90 - 80),
           skyLightness: 15 - progress * (15 - 5),
           starOpacity: progress * 50,
-          moonXPosition: 100 - progress * (100 - 75),
-          moonYPosition: 75 - progress * (75 - 25),
           moonOpacity: progress * 100,
           gradientOpacity: 75 - progress * 75,
         }),
@@ -180,8 +158,6 @@ export function SimCycleProvider({ children }: { children: ReactNode }) {
           skySaturation: 80,
           skyLightness: 5,
           starOpacity: 50 + progress * (100 - 50),
-          moonXPosition: 75 - progress * (75 - 50),
-          moonYPosition: 25,
           moonOpacity: 100,
           gradientOpacity: 0,
         }),
@@ -194,8 +170,6 @@ export function SimCycleProvider({ children }: { children: ReactNode }) {
           skySaturation: 80 - progress * (80 - 75),
           skyLightness: 5 + progress * (10 - 5),
           starOpacity: 100 - progress * (100 - 30),
-          moonXPosition: 50 - progress * 50,
-          moonYPosition: 25 + progress * (75 - 25),
           moonOpacity: 100 - progress * 100,
           gradientOpacity: 0,
         }),
@@ -208,8 +182,6 @@ export function SimCycleProvider({ children }: { children: ReactNode }) {
           skySaturation: 75 - progress * (75 - 70),
           skyLightness: 10 + progress * (15 - 10),
           starOpacity: 30 - progress * 30,
-          moonXPosition: 0,
-          moonYPosition: 75,
           moonOpacity: 0,
           gradientOpacity: progress * 100,
         }),
@@ -241,8 +213,6 @@ export function SimCycleProvider({ children }: { children: ReactNode }) {
       setSkySaturation(values.skySaturation);
       setSkyLightness(values.skyLightness);
       setStarOpacity(values.starOpacity);
-      setMoonXPosition(values.moonXPosition);
-      setMoonYPosition(values.moonYPosition);
       setMoonOpacity(values.moonOpacity);
       setGradientOpacity(values.gradientOpacity);
     };
@@ -260,8 +230,6 @@ export function SimCycleProvider({ children }: { children: ReactNode }) {
         skySaturation,
         skyLightness,
         starOpacity,
-        moonXPosition,
-        moonYPosition,
         moonOpacity,
         gradientOpacity,
       }}
