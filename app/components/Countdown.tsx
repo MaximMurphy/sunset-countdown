@@ -7,7 +7,8 @@ import { useSettings } from "../context/SettingsContext";
 export default function Countdown() {
   const { sunData, getNextEvent } = useSun();
   const [timeLeft, setTimeLeft] = useState<string>("");
-  const { countdown, countdownPosition, countdownSize } = useSettings();
+  const { countdown, countdownPosition, countdownSize, countdownFormat } =
+    useSettings();
 
   useEffect(() => {
     if (!sunData) return;
@@ -42,11 +43,19 @@ export default function Countdown() {
         );
         const secondsDiff = Math.floor((nextDiff % (1000 * 60)) / 1000);
 
-        setTimeLeft(
-          `${hoursDiff.toString().padStart(2, "0")}:${minutesDiff
-            .toString()
-            .padStart(2, "0")}:${secondsDiff.toString().padStart(2, "0")}`
-        );
+        if (countdownFormat === "colons") {
+          setTimeLeft(
+            `${hoursDiff.toString().padStart(2, "0")}:${minutesDiff
+              .toString()
+              .padStart(2, "0")}:${secondsDiff.toString().padStart(2, "0")}`
+          );
+        } else {
+          setTimeLeft(
+            `${hoursDiff}h ${minutesDiff
+              .toString()
+              .padStart(2, "0")}m ${secondsDiff.toString().padStart(2, "0")}s`
+          );
+        }
         return;
       }
 
@@ -54,18 +63,26 @@ export default function Countdown() {
       const minutesDiff = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
       const secondsDiff = Math.floor((diff % (1000 * 60)) / 1000);
 
-      setTimeLeft(
-        `${hoursDiff.toString().padStart(2, "0")}:${minutesDiff
-          .toString()
-          .padStart(2, "0")}:${secondsDiff.toString().padStart(2, "0")}`
-      );
+      if (countdownFormat === "colons") {
+        setTimeLeft(
+          `${hoursDiff.toString().padStart(2, "0")}:${minutesDiff
+            .toString()
+            .padStart(2, "0")}:${secondsDiff.toString().padStart(2, "0")}`
+        );
+      } else {
+        setTimeLeft(
+          `${hoursDiff}h ${minutesDiff
+            .toString()
+            .padStart(2, "0")}m ${secondsDiff.toString().padStart(2, "0")}s`
+        );
+      }
     };
 
     updateCountdown();
     const interval = setInterval(updateCountdown, 1000);
 
     return () => clearInterval(interval);
-  }, [sunData, getNextEvent]);
+  }, [sunData, getNextEvent, countdownFormat]);
 
   if (!sunData) {
     return (
@@ -96,11 +113,19 @@ export default function Countdown() {
             : "text-[4rem] md:text-[10rem] lg:text-[14rem]"
         }`}
       >
-        <div className="w-[1.2em] text-right">{timeLeft.split(":")[0]}</div>
-        <div>:</div>
-        <div className="w-[1.2em] text-center">{timeLeft.split(":")[1]}</div>
-        <div>:</div>
-        <div className="w-[1.2em] text-left">{timeLeft.split(":")[2]}</div>
+        {countdownFormat === "colons" ? (
+          <>
+            <div className="w-[1.2em] text-right">{timeLeft.split(":")[0]}</div>
+            <div>:</div>
+            <div className="w-[1.2em] text-center">
+              {timeLeft.split(":")[1]}
+            </div>
+            <div>:</div>
+            <div className="w-[1.2em] text-left">{timeLeft.split(":")[2]}</div>
+          </>
+        ) : (
+          <div className="text-center">{timeLeft}</div>
+        )}
       </div>
     </section>
   );

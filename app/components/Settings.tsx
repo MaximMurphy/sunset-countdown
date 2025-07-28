@@ -121,7 +121,7 @@ const CountdownSelector = () => {
         </button>
       </section>
       {countdown === "ON" ? (
-        <CountdownToggle height="180px" opacity="1" />
+        <CountdownToggle height="280px" opacity="1" />
       ) : (
         <CountdownToggle height="0px" opacity="0" />
       )}
@@ -138,6 +138,7 @@ const CountdownToggle = ({
 }) => {
   const { countdownPosition, setCountdownPosition } = useSettings();
   const { countdownSize, setCountdownSize } = useSettings();
+  const { countdownFormat, setCountdownFormat } = useSettings();
 
   return (
     <section
@@ -217,6 +218,31 @@ const CountdownToggle = ({
             }`}
           >
             Lg
+          </button>
+        </div>
+      </div>
+      <div className="h-full flex flex-col gap-2">
+        <label className="text-sm font-semibold">Format</label>
+        <div className="w-full h-full flex flex-row justify-between gap-4">
+          <button
+            onClick={() => setCountdownFormat("colons")}
+            className={`h-full w-1/2 border p-2 rounded-md hover:cursor-pointer hover:border-amber-500 transition-all duration-300 ${
+              countdownFormat === "colons"
+                ? "border-amber-500 bg-amber-100/50"
+                : "border-amber-200"
+            }`}
+          >
+            00:00:00
+          </button>
+          <button
+            onClick={() => setCountdownFormat("units")}
+            className={`h-full w-1/2 border p-2 rounded-md hover:cursor-pointer hover:border-amber-500 transition-all duration-300 ${
+              countdownFormat === "units"
+                ? "border-amber-500 bg-amber-100/50"
+                : "border-amber-200"
+            }`}
+          >
+            0h 0m 0s
           </button>
         </div>
       </div>
