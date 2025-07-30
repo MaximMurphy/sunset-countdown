@@ -124,7 +124,11 @@ export default function Countdown() {
             <div className="w-[1.2em] text-left">{timeLeft.split(":")[2]}</div>
           </>
         ) : (
-          <div className="text-center">{timeLeft}</div>
+          <>
+            <div>{timeLeft.split(" ")[0]}</div>
+            <div className="mx-1">{timeLeft.split(" ")[1]}</div>
+            <div className="mx-1">{timeLeft.split(" ")[2]}</div>
+          </>
         )}
       </div>
     </section>
