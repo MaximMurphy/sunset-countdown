@@ -5,7 +5,8 @@ import Sun from "./components/Sun";
 import Settings from "./components/Settings";
 import GrainySVG from "./components/GrainySVG";
 import FontProvider from "./components/FontProvider";
-import Gradients from "./components/Gradients";
+import SunriseGradient from "./components/SunriseGradient";
+import SunsetGradient from "./components/SunsetGradient";
 import Stars from "./components/Stars";
 import Moon from "./components/Moon";
 import { DayCycleProvider } from "./context/DayCycleContext";
@@ -17,7 +18,8 @@ export default function Home() {
         <div className="relative h-dvh md:h-screen flex flex-col items-center justify-center">
           <GrainySVG />
           <Sky />
-          <Gradients />
+          <SunriseGradient />
+          <SunsetGradient />
           <Sun />
           <Stars />
           <Moon />

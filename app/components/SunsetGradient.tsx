@@ -5,14 +5,14 @@ import { useDayCycle } from "../context/DayCycleContext";
 const TOP_COLOR = "#fd9a00";
 const BOTTOM_COLOR = "#ca3500";
 
-export default function Gradients() {
-  const { gradientOpacity } = useDayCycle();
+export default function SunsetGradient() {
+  const { sunsetGradientOpacity } = useDayCycle();
 
   return (
     <div
       className="absolute w-full h-full flex flex-col items-center justify-between transition-all duration-1000 ease-in-out"
       style={{
-        opacity: gradientOpacity / 100,
+        opacity: sunsetGradientOpacity / 100,
       }}
     >
       <div

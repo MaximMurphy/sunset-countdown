@@ -2,17 +2,17 @@
 
 import { useSimCycle } from "../../context/SimCycleContext";
 
-const TOP_COLOR = "#fd9a00";
-const BOTTOM_COLOR = "#ca3500";
+const TOP_COLOR = "#e68a99";
+const BOTTOM_COLOR = "#ffab19";
 
-export default function Gradients() {
-  const { gradientOpacity } = useSimCycle();
+export default function SunriseGradientSim() {
+  const { sunriseGradientOpacity } = useSimCycle();
 
   return (
     <div
       className="absolute w-full h-full flex flex-col items-center justify-between transition-all duration-1000 ease-in-out"
       style={{
-        opacity: gradientOpacity / 100,
+        opacity: sunriseGradientOpacity / 100,
       }}
     >
       <div

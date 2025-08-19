@@ -16,7 +16,8 @@ interface DayCycleContextType {
   skyLightness: number;
   starOpacity: number;
   moonOpacity: number;
-  gradientOpacity: number;
+  sunriseGradientOpacity: number;
+  sunsetGradientOpacity: number;
 }
 
 const DayCycleContext = createContext<DayCycleContextType | undefined>(
@@ -31,7 +32,8 @@ export function DayCycleProvider({ children }: { children: ReactNode }) {
   const [skyLightness, setSkyLightness] = useState(0);
   const [starOpacity, setStarOpacity] = useState(0);
   const [moonOpacity, setMoonOpacity] = useState(0);
-  const [gradientOpacity, setGradientOpacity] = useState(0);
+  const [sunriseGradientOpacity, setSunriseGradientOpacity] = useState(0);
+  const [sunsetGradientOpacity, setSunsetGradientOpacity] = useState(0);
 
   useEffect(() => {
     if (!sunData) return;
@@ -54,7 +56,8 @@ export function DayCycleProvider({ children }: { children: ReactNode }) {
         skyLightness,
         starOpacity,
         moonOpacity,
-        gradientOpacity;
+        sunriseGradientOpacity,
+        sunsetGradientOpacity;
 
       // Sunrise to sunriseEnd (0-10%)
       if (now >= sunData.sunrise && now < sunData.sunriseEnd) {
@@ -65,7 +68,8 @@ export function DayCycleProvider({ children }: { children: ReactNode }) {
         skyLightness = 15 + progress * (25 - 15); // From 15 to 25
         starOpacity = 0;
         moonOpacity = 0;
-        gradientOpacity = 100 - progress * (100 - 55);
+        sunriseGradientOpacity = 100 - progress * (100 - 55);
+        sunsetGradientOpacity = 0;
       }
 
       // sunriseEnd to goldenHourEnd (10-20%)
@@ -81,7 +85,8 @@ export function DayCycleProvider({ children }: { children: ReactNode }) {
         skyLightness = 25 + progress * (45 - 25); // From 25 to 45
         starOpacity = 0;
         moonOpacity = 0;
-        gradientOpacity = 55 - progress * 55;
+        sunriseGradientOpacity = 55 - progress * 55;
+        sunsetGradientOpacity = 0;
       }
 
       // goldenHourEnd to midpoint1 (20-35%)
@@ -105,7 +110,8 @@ export function DayCycleProvider({ children }: { children: ReactNode }) {
         skyLightness = 45; // From 45 to 45 (no change)
         starOpacity = 0;
         moonOpacity = 0;
-        gradientOpacity = 0;
+        sunriseGradientOpacity = 0;
+        sunsetGradientOpacity = 0;
       }
 
       // midpoint1 to solarNoon (35-50%)
@@ -129,7 +135,8 @@ export function DayCycleProvider({ children }: { children: ReactNode }) {
         skyLightness = 45; // From 45 to 45 (no change)
         starOpacity = 0;
         moonOpacity = 0;
-        gradientOpacity = 0;
+        sunriseGradientOpacity = 0;
+        sunsetGradientOpacity = 0;
       }
 
       // solarNoon to midpoint2 (50-65%)
@@ -153,7 +160,8 @@ export function DayCycleProvider({ children }: { children: ReactNode }) {
         skyLightness = 45 - progress * (45 - 40); // From 45 to 40
         starOpacity = 0;
         moonOpacity = 0;
-        gradientOpacity = 0;
+        sunriseGradientOpacity = 0;
+        sunsetGradientOpacity = 0;
       }
 
       // midpoint2 to goldenHour (65-80%)
@@ -177,7 +185,8 @@ export function DayCycleProvider({ children }: { children: ReactNode }) {
         skyLightness = 40 - progress * (40 - 35); // From 40 to 35
         starOpacity = 0;
         moonOpacity = 0;
-        gradientOpacity = progress * 25;
+        sunriseGradientOpacity = 0;
+        sunsetGradientOpacity = progress * 25;
       }
 
       // goldenHour to sunsetStart (80-90%)
@@ -193,7 +202,8 @@ export function DayCycleProvider({ children }: { children: ReactNode }) {
         skyLightness = 35 - progress * (35 - 20); // From 35 to 20
         starOpacity = 0;
         moonOpacity = 0;
-        gradientOpacity = 25 + progress * (100 - 25);
+        sunriseGradientOpacity = 0;
+        sunsetGradientOpacity = 25 + progress * (100 - 25);
       }
 
       // sunsetStart to sunset (90-100%)
@@ -205,7 +215,8 @@ export function DayCycleProvider({ children }: { children: ReactNode }) {
         skyLightness = 20 - progress * (20 - 15); // From 20 to 15
         starOpacity = 0;
         moonOpacity = 0;
-        gradientOpacity = 100 - progress * (100 - 50);
+        sunriseGradientOpacity = 0;
+        sunsetGradientOpacity = 100 - progress * (100 - 50);
       }
 
       // sunset to nauticalDusk
@@ -217,7 +228,8 @@ export function DayCycleProvider({ children }: { children: ReactNode }) {
         skyLightness = 15 - progress * (15 - 5); // From 15 to 5
         starOpacity = progress * 50; // From 0 to 30
         moonOpacity = progress * 50;
-        gradientOpacity = 50 - progress * 50;
+        sunriseGradientOpacity = 0;
+        sunsetGradientOpacity = 50 - progress * 50;
       }
 
       // nauticalDusk to nadir
@@ -248,7 +260,8 @@ export function DayCycleProvider({ children }: { children: ReactNode }) {
         skyLightness = 5; // No Change
         starOpacity = 50 + progress * (100 - 50); // From 50 to 100
         moonOpacity = 100; // No Change
-        gradientOpacity = 0; // No Change
+        sunriseGradientOpacity = 0; // No Change
+        sunsetGradientOpacity = 0; // No Change
       }
 
       // nadir to nauticalDawn
@@ -260,7 +273,8 @@ export function DayCycleProvider({ children }: { children: ReactNode }) {
         skyLightness = 5 + progress * (10 - 5); // From 5 to 10
         starOpacity = 100 - progress * (100 - 30); // From 100 to 30
         moonOpacity = 100 - progress * 100; // From 100 to 0
-        gradientOpacity = 0; // No Change
+        sunriseGradientOpacity = 0; // No Change
+        sunsetGradientOpacity = 0; // No Change
       }
 
       // nauticalDawn to sunrise (150-160%)
@@ -276,7 +290,8 @@ export function DayCycleProvider({ children }: { children: ReactNode }) {
         skyLightness = 10 + progress * (15 - 10); // From 10 to 15
         starOpacity = 30 - progress * 30; // From 30 to 0
         moonOpacity = 0; // No Change
-        gradientOpacity = progress * 100; // From 0 to 100
+        sunriseGradientOpacity = progress * 100; // From 0 to 100
+        sunsetGradientOpacity = 0; // No Change
       }
 
       // Default night values
@@ -287,7 +302,8 @@ export function DayCycleProvider({ children }: { children: ReactNode }) {
         skyLightness = 5;
         starOpacity = 100;
         moonOpacity = 100;
-        gradientOpacity = 0;
+        sunriseGradientOpacity = 0;
+        sunsetGradientOpacity = 0;
       }
 
       setSunPosition(position);
@@ -296,7 +312,8 @@ export function DayCycleProvider({ children }: { children: ReactNode }) {
       setSkyLightness(skyLightness);
       setStarOpacity(starOpacity);
       setMoonOpacity(moonOpacity);
-      setGradientOpacity(gradientOpacity);
+      setSunriseGradientOpacity(sunriseGradientOpacity);
+      setSunsetGradientOpacity(sunsetGradientOpacity);
     };
 
     updateDayCycle();
@@ -314,7 +331,8 @@ export function DayCycleProvider({ children }: { children: ReactNode }) {
         skyLightness,
         starOpacity,
         moonOpacity,
-        gradientOpacity,
+        sunriseGradientOpacity,
+        sunsetGradientOpacity,
       }}
     >
       {children}

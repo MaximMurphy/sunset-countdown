@@ -16,7 +16,8 @@ interface SimCycleContextType {
   skyLightness: number;
   starOpacity: number;
   moonOpacity: number;
-  gradientOpacity: number;
+  sunriseGradientOpacity: number;
+  sunsetGradientOpacity: number;
 }
 
 const SimCycleContext = createContext<SimCycleContextType | undefined>(
@@ -31,7 +32,8 @@ export function SimCycleProvider({ children }: { children: ReactNode }) {
   const [skyLightness, setSkyLightness] = useState(0);
   const [starOpacity, setStarOpacity] = useState(0);
   const [moonOpacity, setMoonOpacity] = useState(0);
-  const [gradientOpacity, setGradientOpacity] = useState(0);
+  const [sunriseGradientOpacity, setSunriseGradientOpacity] = useState(0);
+  const [sunsetGradientOpacity, setSunsetGradientOpacity] = useState(0);
 
   // Use useRef to track current phase
   const phaseIndexRef = useRef(0);
@@ -51,7 +53,8 @@ export function SimCycleProvider({ children }: { children: ReactNode }) {
           skyLightness: 15 + progress * (25 - 15),
           starOpacity: 0,
           moonOpacity: 0,
-          gradientOpacity: 100 - progress * (100 - 55),
+          sunriseGradientOpacity: 100 - progress * (100 - 55),
+          sunsetGradientOpacity: 0,
         }),
       },
       // sunriseEnd to goldenHourEnd
@@ -63,7 +66,8 @@ export function SimCycleProvider({ children }: { children: ReactNode }) {
           skyLightness: 25 + progress * (45 - 25),
           starOpacity: 0,
           moonOpacity: 0,
-          gradientOpacity: 55 - progress * 55,
+          sunriseGradientOpacity: 55 - progress * 55,
+          sunsetGradientOpacity: 0,
         }),
       },
       // goldenHourEnd to midpoint1
@@ -75,7 +79,8 @@ export function SimCycleProvider({ children }: { children: ReactNode }) {
           skyLightness: 45,
           starOpacity: 0,
           moonOpacity: 0,
-          gradientOpacity: 0,
+          sunriseGradientOpacity: 0,
+          sunsetGradientOpacity: 0,
         }),
       },
       // midpoint1 to solarNoon
@@ -87,7 +92,8 @@ export function SimCycleProvider({ children }: { children: ReactNode }) {
           skyLightness: 45,
           starOpacity: 0,
           moonOpacity: 0,
-          gradientOpacity: 0,
+          sunriseGradientOpacity: 0,
+          sunsetGradientOpacity: 0,
         }),
       },
       // solarNoon to midpoint2
@@ -99,7 +105,8 @@ export function SimCycleProvider({ children }: { children: ReactNode }) {
           skyLightness: 45 - progress * (45 - 40),
           starOpacity: 0,
           moonOpacity: 0,
-          gradientOpacity: 0,
+          sunriseGradientOpacity: 0,
+          sunsetGradientOpacity: 0,
         }),
       },
       // midpoint2 to goldenHour
@@ -111,7 +118,8 @@ export function SimCycleProvider({ children }: { children: ReactNode }) {
           skyLightness: 40 - progress * (40 - 35),
           starOpacity: 0,
           moonOpacity: 0,
-          gradientOpacity: progress * 25,
+          sunriseGradientOpacity: 0,
+          sunsetGradientOpacity: progress * 25,
         }),
       },
       // goldenHour to sunsetStart
@@ -123,7 +131,8 @@ export function SimCycleProvider({ children }: { children: ReactNode }) {
           skyLightness: 35 - progress * (35 - 20),
           starOpacity: 0,
           moonOpacity: 0,
-          gradientOpacity: 25 + progress * (100 - 25),
+          sunriseGradientOpacity: 0,
+          sunsetGradientOpacity: 25 + progress * (100 - 25),
         }),
       },
       // sunsetStart to sunset
@@ -135,7 +144,8 @@ export function SimCycleProvider({ children }: { children: ReactNode }) {
           skyLightness: 20 - progress * (20 - 15),
           starOpacity: 0,
           moonOpacity: 0,
-          gradientOpacity: 100 - progress * (100 - 50),
+          sunriseGradientOpacity: 0,
+          sunsetGradientOpacity: 100 - progress * (100 - 50),
         }),
       },
       // sunset to nauticalDusk
@@ -147,7 +157,8 @@ export function SimCycleProvider({ children }: { children: ReactNode }) {
           skyLightness: 15 - progress * (15 - 5),
           starOpacity: progress * 50,
           moonOpacity: progress * 50,
-          gradientOpacity: 50 - progress * 50,
+          sunriseGradientOpacity: 0,
+          sunsetGradientOpacity: 50 - progress * 50,
         }),
       },
       // nauticalDusk to nadir
@@ -159,7 +170,8 @@ export function SimCycleProvider({ children }: { children: ReactNode }) {
           skyLightness: 5,
           starOpacity: 50 + progress * (100 - 50),
           moonOpacity: 50 + progress * (100 - 50),
-          gradientOpacity: 0,
+          sunriseGradientOpacity: 0,
+          sunsetGradientOpacity: 0,
         }),
       },
       // nadir to nauticalDawn
@@ -171,7 +183,8 @@ export function SimCycleProvider({ children }: { children: ReactNode }) {
           skyLightness: 5 + progress * (10 - 5),
           starOpacity: 100 - progress * (100 - 30),
           moonOpacity: 100 - progress * 100,
-          gradientOpacity: 0,
+          sunriseGradientOpacity: 0,
+          sunsetGradientOpacity: 0,
         }),
       },
       // nauticalDawn to sunrise
@@ -183,7 +196,8 @@ export function SimCycleProvider({ children }: { children: ReactNode }) {
           skyLightness: 10 + progress * (15 - 10),
           starOpacity: 30 - progress * 30,
           moonOpacity: 0,
-          gradientOpacity: progress * 100,
+          sunriseGradientOpacity: progress * 100,
+          sunsetGradientOpacity: 0,
         }),
       },
     ];
@@ -214,7 +228,8 @@ export function SimCycleProvider({ children }: { children: ReactNode }) {
       setSkyLightness(values.skyLightness);
       setStarOpacity(values.starOpacity);
       setMoonOpacity(values.moonOpacity);
-      setGradientOpacity(values.gradientOpacity);
+      setSunriseGradientOpacity(values.sunriseGradientOpacity);
+      setSunsetGradientOpacity(values.sunsetGradientOpacity);
     };
 
     updateSimCycle();
@@ -231,7 +246,8 @@ export function SimCycleProvider({ children }: { children: ReactNode }) {
         skyLightness,
         starOpacity,
         moonOpacity,
-        gradientOpacity,
+        sunriseGradientOpacity,
+        sunsetGradientOpacity,
       }}
     >
       {children}
