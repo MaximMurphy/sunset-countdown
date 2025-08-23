@@ -369,16 +369,26 @@ const SettingsIcon = () => (
 );
 
 const Footer = () => (
-  <p className="text-sm text-center">
-    🌅 Made by{" "}
+  <div className="flex flex-col gap-2">
+    <p className="text-sm text-center">
+      🌅 Made by{" "}
+      <Link
+        href="https://www.maximmurphy.com/"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="hover:text-amber-500 transition-all duration-300"
+      >
+        Maxim Murphy
+      </Link>{" "}
+      🌇
+    </p>
     <Link
-      href="https://www.maximmurphy.com/"
+      href="https://apps.apple.com/vn/app/sunset-sunrise-countdown/id6748830770?uo=2"
       target="_blank"
       rel="noopener noreferrer"
-      className="hover:text-amber-500 transition-all duration-300"
+      className="text-sm text-center hover:text-amber-500 transition-all duration-300"
     >
-      Maxim Murphy
-    </Link>{" "}
-    🌇
-  </p>
+      Now available on the App Store!
+    </Link>
+  </div>
 );
